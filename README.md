@@ -138,9 +138,8 @@ Any contributions you make are **greatly appreciated**.
 
 ## Authors
 
-* **Saif Ad-Din Samir** - *Computer Science Student* - [Saif Ad-Din Samir](https://github.com/ZodicSlanser/) - *Made the repo*
+* **Saif Ad-Din Samir** - *Computer Science Student* - [ZodicSlanser](https://github.com/ZodicSlanser/) - *Made the repo*
 * **Said Sharaf** - *Computer Science Student* - [Said Sharaf](PLACEHOLDER) - *PLACEHOLDER*
 * **Salma Hamdy** - *Computer Science Student* - [Salma Hamdy](PLACEHOLDER) - *PLACEHOLDER*
 * **Ziad Ezzat** - *Computer Science Student* - [Ziad Ezzat](https://github.com/ziad-ezzat) - *PLACEHOLDER*
 * **Ziad Shalaby** - *Computer Science Student* - [Ziad Shalaby](https://github.com/ZeadShalaby) - *PLACEHOLDER*
-
