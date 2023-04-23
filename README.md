@@ -97,21 +97,22 @@ Make the migrations to update the database
 ```
 
 
-Start the server
+Start the server and run watch
 
 ```bash
-  php artisan serve
+    php artisan serve
+    npx mix watch
 ```
 
-or alternatively run the .bat file for live-reload
+or alternatively run the .bat 
 ```bash
-  /autorun.bat
+    /autorun.bat
 ```
 
 
 go to the following route
 ```
-http://127.0.0.1:8000/
+    http://127.0.0.1:8000/
 ```
 
 ### Running via container
