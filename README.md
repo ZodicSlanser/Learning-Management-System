@@ -143,4 +143,3 @@ Any contributions you make are **greatly appreciated**.
 * **Salma Hamdy** - *Computer Science Student* - [Salma Hamdy](PLACEHOLDER) - *PLACEHOLDER*
 * **Ziad Ezzat** - *Computer Science Student* - [Ziad Ezzat](https://github.com/ziad-ezzat) - *PLACEHOLDER*
 * **Ziad Shalaby** - *Computer Science Student* - [Ziad Shalaby](PLACEHOLDER) - *PLACEHOLDER*
-
