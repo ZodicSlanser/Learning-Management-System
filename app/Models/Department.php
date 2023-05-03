@@ -8,22 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-   use HasFactory;
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'code',
     ];
 
+    protected static function newFactory()
+    {
+        return DepartmentFactory::new();
+    }
+
     public function courses()
     {
         return $this->hasMany(Course::class);
     }
+
     public function professors()
     {
         return $this->hasMany(User::class, 'department_id');
-    }
-    protected static function newFactory()
-    {
-        return DepartmentFactory::new();
     }
 }

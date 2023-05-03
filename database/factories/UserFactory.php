@@ -1,28 +1,28 @@
 <?php
+
 namespace Database\Factories;
 
 use App\Models\Department;
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use InvalidArgumentException;
 
 class UserFactory extends Factory
 {
-protected $model = User::class;
+    protected $model = User::class;
 
-public function definition()
-{
-return [
-'name' => $this->faker->name,
-'username' => $this->faker->userName,
-'email' => $this->faker->unique()->safeEmail,
-'password' => bcrypt($this->faker->password),
-'department_id' => Department::factory(),
-'academic_number' => $this->faker->unique()->randomNumber(),
-'role' => Role::STUDENT, // Default to student role.
-];
-}
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'username' => $this->faker->userName,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => bcrypt($this->faker->password),
+            'department_id' => Department::factory(),
+            'academic_number' => $this->faker->unique()->randomNumber(),
+            'role' => Role::STUDENT, // Default to student role.
+        ];
+    }
 
     public function admin()
     {

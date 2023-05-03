@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'username',
@@ -28,6 +29,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
+
     public function enrollments()
     {
         return $this->hasMany(Enrollment::class, 'student_id');
@@ -37,18 +43,14 @@ class User extends Authenticatable
     {
         if ($this->role === Role::PROFESSOR) {
             return $this->hasMany(Course::class, 'professor_id');
-        }
-        else if($this->role === Role::STUDENT) {
+        } else if ($this->role === Role::STUDENT) {
             return $this->belongsToMany(Course::class, 'enrollments', 'user_id', 'course_id');
         }
-            return null;
+        return null;
     }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
-    }
-    protected static function newFactory()
-    {
-        return UserFactory::new();
     }
 }

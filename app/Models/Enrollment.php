@@ -9,11 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 class Enrollment extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'student_id',
         'course_id',
         'grade'
     ];
+
+    protected static function newFactory()
+    {
+        return EnrollmentFactory::new();
+    }
+
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id');
@@ -22,9 +29,5 @@ class Enrollment extends Model
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
-    }
-    protected static function newFactory()
-    {
-        return EnrollmentFactory::new();
     }
 }

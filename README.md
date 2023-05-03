@@ -4,7 +4,7 @@
     <img src="https://thumbs.dreamstime.com/b/lms-letter-logo-design-black-background-lms-creative-initials-letter-logo-concept-lms-letter-design-lms-letter-logo-design-243270956.jpg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Learning Management System</h3>
+<h3 align="center">Learning Management System</h3>
 
   <p align="center">
     A Mini-Project for CS352
@@ -13,7 +13,7 @@
   </p>
 </p>
 
-![Forks](https://img.shields.io/github/forks/ZodicSlanser/Learning-Management-System?style=social) ![Issues](https://img.shields.io/github/issues/ZodicSlanser/Learning-Management-System) ![License](https://img.shields.io/github/license/ZodicSlanser/Learning-Management-System) 
+![Forks](https://img.shields.io/github/forks/ZodicSlanser/Learning-Management-System?style=social) ![Issues](https://img.shields.io/github/issues/ZodicSlanser/Learning-Management-System) ![License](https://img.shields.io/github/license/ZodicSlanser/Learning-Management-System)
 
 ## Table Of Contents
 
@@ -28,12 +28,12 @@
 * [Contributing](#contributing)
 * [Authors](#authors)
 
-
 ## About The Project
 
 ![Index Page Image](PLACEHOLDER)
 
-A Simple LMS built as a mini-project for SWE-2 (CS352) under the supervision of Eng. Ahmed EL-Batanouni to apply concepts of Backend development and Containerization 
+A Simple LMS built as a mini-project for SWE-2 (CS352) under the supervision of Eng. Ahmed EL-Batanouni to apply
+concepts of Backend development and Containerization
 
 ## Built With
 
@@ -43,8 +43,8 @@ A Simple LMS built as a mini-project for SWE-2 (CS352) under the supervision of 
 
 **Containerization Service:** Docker
 
-**Miscellaneous:** Github Actions, [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images), [Docker Login](https://github.com/marketplace/actions/docker-login)
-
+**Miscellaneous:** Github
+Actions, [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images), [Docker Login](https://github.com/marketplace/actions/docker-login)
 
 ## Getting Started
 
@@ -57,15 +57,16 @@ To get a local copy up and running follow these simple example steps.
 ```sh
 npm install npm@latest -g
 ```
-* laravel 
+
+* laravel
 
 ```sh
 composer global require laravel/installer
 ```
-Make sure that either **MySQL** or **MariaDB** are installed either manually or via **phpMyAdmin** 
+
+Make sure that either **MySQL** or **MariaDB** are installed either manually or via **phpMyAdmin**
 
 ### Installation
-
 
 Clone the project
 
@@ -88,14 +89,13 @@ Install dependencies
 
 ## Usage
 
-### Running Locally 
+### Running Locally
 
 Make the migrations to update the database
 
 ```bash
     php artisan migrate
 ```
-
 
 Start the server and run watch
 
@@ -104,13 +104,14 @@ Start the server and run watch
     npx mix watch
 ```
 
-or alternatively run the .bat 
+or alternatively run the .bat
+
 ```bash
     /autorun.bat
 ```
 
-
 go to the following route
+
 ```
     http://127.0.0.1:8000/
 ```
@@ -123,7 +124,9 @@ go to the following route
 
 Any contributions you make are **greatly appreciated**.
 
-* If you have suggestions for adding or removing projects, feel free to [open an issue](https://github.com/ZodicSlanser/Learning-Management-System/issues/new) to discuss it, or directly create a pull request after you edit the *README.md* file with necessary changes.
+* If you have suggestions for adding or removing projects, feel free
+  to [open an issue](https://github.com/ZodicSlanser/Learning-Management-System/issues/new) to discuss it, or directly
+  create a pull request after you edit the *README.md* file with necessary changes.
 * Please make sure you check your spelling and grammar.
 * Create individual PR for each suggestion.
 * Make sure to add a meaningful description
@@ -138,7 +141,8 @@ Any contributions you make are **greatly appreciated**.
 
 ## Authors
 
-* **Saif Ad-Din Samir** - *Computer Science Student* - [Saif Ad-Din Samir](https://github.com/ZodicSlanser/) - *Made the repo*
+* **Saif Ad-Din Samir** - *Computer Science Student* - [Saif Ad-Din Samir](https://github.com/ZodicSlanser/) - *Made the
+  repo*
 * **Said Sharaf** - *Computer Science Student* - [Said Sharaf](PLACEHOLDER) - *PLACEHOLDER*
 * **Salma Hamdy** - *Computer Science Student* - [Salma Hamdy](PLACEHOLDER) - *PLACEHOLDER*
 * **Ziad Ezzat** - *Computer Science Student* - [Ziad Ezzat](https://github.com/ziad-ezzat) - *PLACEHOLDER*
