@@ -41,6 +41,7 @@ class User extends Authenticatable
         else if($this->role === Role::STUDENT) {
             return $this->belongsToMany(Course::class, 'enrollments', 'user_id', 'course_id');
         }
+            return null;
     }
     public function role()
     {
