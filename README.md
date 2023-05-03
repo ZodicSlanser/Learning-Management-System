@@ -11,7 +11,7 @@
     <br/>
     <br/>
   </p>
-</p>
+
 
 ![Forks](https://img.shields.io/github/forks/ZodicSlanser/Learning-Management-System?style=social) ![Issues](https://img.shields.io/github/issues/ZodicSlanser/Learning-Management-System) ![License](https://img.shields.io/github/license/ZodicSlanser/Learning-Management-System)
 
@@ -28,12 +28,12 @@
 * [Contributing](#contributing)
 * [Authors](#authors)
 
+
 ## About The Project
 
 ![Index Page Image](PLACEHOLDER)
 
-A Simple LMS built as a mini-project for SWE-2 (CS352) under the supervision of Eng. Ahmed EL-Batanouni to apply
-concepts of Backend development and Containerization
+A Simple LMS built as a mini-project for SWE-2 (CS352) under the supervision of Eng. Ahmed EL-Batanouni to apply concepts of Backend development and Containerization
 
 ## Built With
 
@@ -43,8 +43,8 @@ concepts of Backend development and Containerization
 
 **Containerization Service:** Docker
 
-**Miscellaneous:** Github
-Actions, [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images), [Docker Login](https://github.com/marketplace/actions/docker-login)
+**Miscellaneous:** Github Actions, [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images), [Docker Login](https://github.com/marketplace/actions/docker-login)
+
 
 ## Getting Started
 
@@ -57,16 +57,15 @@ To get a local copy up and running follow these simple example steps.
 ```sh
 npm install npm@latest -g
 ```
-
 * laravel
 
 ```sh
 composer global require laravel/installer
 ```
-
 Make sure that either **MySQL** or **MariaDB** are installed either manually or via **phpMyAdmin**
 
 ### Installation
+
 
 Clone the project
 
@@ -96,22 +95,29 @@ Make the migrations to update the database
 ```bash
     php artisan migrate
 ```
+Seed the Database
+
+```bash
+    php artisan db:seed
+```
+
 
 Start the server and run watch
 
 ```bash
     php artisan serve
-    npx mix watch
 ```
+```bash
+    npx run watch
+````
 
 or alternatively run the .bat
-
 ```bash
     /autorun.bat
 ```
 
-go to the following route
 
+go to the following route
 ```
     http://127.0.0.1:8000/
 ```
@@ -124,9 +130,7 @@ go to the following route
 
 Any contributions you make are **greatly appreciated**.
 
-* If you have suggestions for adding or removing projects, feel free
-  to [open an issue](https://github.com/ZodicSlanser/Learning-Management-System/issues/new) to discuss it, or directly
-  create a pull request after you edit the *README.md* file with necessary changes.
+* If you have suggestions for adding or removing projects, feel free to [open an issue](https://github.com/ZodicSlanser/Learning-Management-System/issues/new) to discuss it, or directly create a pull request after you edit the *README.md* file with necessary changes.
 * Please make sure you check your spelling and grammar.
 * Create individual PR for each suggestion.
 * Make sure to add a meaningful description
@@ -141,10 +145,8 @@ Any contributions you make are **greatly appreciated**.
 
 ## Authors
 
-* **Saif Ad-Din Samir** - *Computer Science Student* - [Saif Ad-Din Samir](https://github.com/ZodicSlanser/) - *Made the
-  repo*
-* **Said Sharaf** - *Computer Science Student* - [Said Sharaf](PLACEHOLDER) - *PLACEHOLDER*
+* **Saif Ad-Din Samir** - *Computer Science Student* - [ZodicSlanser](https://github.com/ZodicSlanser/) - *PLACEHOLDER*
+* **Said Sharaf** - *Computer Science Student* - [Said Sharaf](https://github.com/Saidsharaf) - *PLACEHOLDER*
 * **Salma Hamdy** - *Computer Science Student* - [Salma Hamdy](PLACEHOLDER) - *PLACEHOLDER*
 * **Ziad Ezzat** - *Computer Science Student* - [Ziad Ezzat](https://github.com/ziad-ezzat) - *PLACEHOLDER*
-* **Ziad Shalaby** - *Computer Science Student* - [Ziad Shalaby](PLACEHOLDER) - *PLACEHOLDER*
-
+* **Ziad Shalaby** - *Computer Science Student* - [Ziad Shalaby](https://github.com/ZeadShalaby) - *PLACEHOLDER*
