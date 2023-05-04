@@ -2,37 +2,55 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = User::class;
+
+    public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'name' => $this->faker->name,
+            'username' => $this->faker->userName,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => bcrypt($this->faker->password),
+            'department_id' => Department::factory(),
+            'academic_number' => $this->faker->unique()->randomNumber(),
+            'role' => Role::STUDENT, // Default to student role.
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+    public function admin()
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(function (array $attributes) {
+            return [
+                'department_id' => null,
+                'academic_number' => null,
+                'role' => Role::ADMIN,
+            ];
+        });
+    }
+
+    public function professor()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'academic_number' => null,
+                'role' => Role::PROFESSOR,
+            ];
+        });
+    }
+
+    public function student()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => Role::STUDENT,
+            ];
+        });
     }
 }

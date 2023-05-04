@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Course;
+use App\Models\Department;
+use App\Models\Enrollment;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +16,49 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Create 5 departments
+        $departments = Department::factory()->count(5)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $admins = User::factory()
+            ->admin()
+            ->count(5)
+            ->create();
+
+        $professors = User::factory()
+            ->professor()
+            ->count(10)
+            ->state(function (array $attributes) use ($departments) {
+                return ['department_id' => $departments->random()->id];
+            })
+            ->create();
+
+        $students = User::factory()
+            ->student()
+            ->count(100)
+            ->create();
+
+        $courses = Course::factory()
+            ->count(100)
+            ->state(function (array $attributes) use ($departments, $professors) {
+                return [
+                    'department_id' => $departments->random()->id,
+                    'professor_id' => $professors->random()->id,
+                ];
+            })->create();
+
+        // Enroll students in random courses
+        foreach ($students as $student) {
+            $enrollments = Enrollment::factory()
+                ->count(rand(2, 5))
+                ->state(function (array $attributes) use ($courses, $student) {
+                    $course = $courses->random();
+                    return [
+                        'course_id' => $course->id,
+                        'grade' => rand(50, 100),
+                        'student_id' => $student->id,
+                    ];
+                })->create();
+
+        }
     }
 }
