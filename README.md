@@ -83,6 +83,8 @@ Install dependencies
 
 ```bash
   composer install
+```
+```bash
   npm install
 ```
 
@@ -147,6 +149,6 @@ Any contributions you make are **greatly appreciated**.
 
 * **Saif Ad-Din Samir** - *Computer Science Student* - [ZodicSlanser](https://github.com/ZodicSlanser/) - *PLACEHOLDER*
 * **Said Sharaf** - *Computer Science Student* - [Said Sharaf](https://github.com/Saidsharaf) - *PLACEHOLDER*
-* **Salma Hamdy** - *Computer Science Student* - [Salma Hamdy](PLACEHOLDER) - *PLACEHOLDER*
+* **Salma Hamdy** - *Computer Science Student* - [Salma Hamdy](https://github.com/salmaserag) - *PLACEHOLDER*
 * **Ziad Ezzat** - *Computer Science Student* - [Ziad Ezzat](https://github.com/ziad-ezzat) - *PLACEHOLDER*
 * **Ziad Shalaby** - *Computer Science Student* - [Ziad Shalaby](https://github.com/ZeadShalaby) - *PLACEHOLDER*
