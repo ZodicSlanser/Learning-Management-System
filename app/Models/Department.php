@@ -25,8 +25,23 @@ class Department extends Model
         return $this->hasMany(Course::class);
     }
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function students_in_courses()
+    {
+        return $this->hasManyThrough(User::class, Course::class)->distinct();
+    }
+
+    public function total_students()
+    {
+        return $this->students()->count();
+    }
+
     public function professors()
     {
-        return $this->hasMany(User::class, 'department_id');
+        return $this->hasMany(User::class, 'department_id')->where('role', Role::PROFESSOR);
     }
 }

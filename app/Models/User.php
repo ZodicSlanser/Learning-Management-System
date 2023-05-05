@@ -34,6 +34,11 @@ class User extends Authenticatable
         return UserFactory::new();
     }
 
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
     public function enrollments()
     {
         return $this->hasMany(Enrollment::class, 'student_id');
@@ -43,7 +48,7 @@ class User extends Authenticatable
     {
         if ($this->role === Role::PROFESSOR) {
             return $this->hasMany(Course::class, 'professor_id');
-        } else if ($this->role === Role::STUDENT) {
+        } elseif ($this->role === Role::STUDENT) {
             return $this->belongsToMany(Course::class, 'enrollments', 'user_id', 'course_id');
         }
         return null;
@@ -53,4 +58,44 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function is_admin()
+    {
+        return $this->role === Role::ADMIN;
+    }
+
+    public function has_enrolled_in(Course $course)
+    {
+        return $this->courses_enrolled()->where('id', $course->id)->exists();
+    }
+
+    public function courses_enrolled()
+    {
+        if ($this->is_student())
+            return $this->belongsToMany(Course::class, 'enrollments', 'user_id', 'course_id');
+        return null;
+    }
+
+    public function is_student()
+    {
+        return $this->role === Role::STUDENT;
+    }
+
+    public function has_taught(Course $course)
+    {
+        return $this->courses_taught()->where('id', $course->id)->exists();
+    }
+
+    public function courses_taught()
+    {
+        if ($this->is_professor())
+            return $this->courses;
+        return null;
+    }
+
+    public function is_professor()
+    {
+        return $this->role === Role::PROFESSOR;
+    }
+
 }
