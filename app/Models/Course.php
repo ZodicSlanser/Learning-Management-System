@@ -27,13 +27,28 @@ class Course extends Model
         return $this->belongsTo(User::class, 'professor_id');
     }
 
-    public function is_enrolled($user_id)
+    public function getPrerequisite()
     {
-        return $this->students()->where('users.id', $user_id)->exists();
+        return $this->prerequisite()->first();
+    }
+
+    public function prerequisite()
+    {
+        return $this->belongsTo(Course::class);
     }
 
     public function students()
     {
         return $this->belongsToMany(User::class, 'enrollments');
+    }
+
+    public function getEnrollments()
+    {
+        return $this->enrollments()->with('student')->get();
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
     }
 }
