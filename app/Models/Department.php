@@ -30,6 +30,7 @@ class Department extends Model
         return $this->hasMany(User::class);
     }
 
+    //returns the students in each course
     public function students_in_courses()
     {
         return $this->hasManyThrough(User::class, Course::class)->distinct();
