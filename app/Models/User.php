@@ -6,7 +6,6 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
 class User extends Authenticatable
 {
     use HasFactory;
@@ -66,7 +65,7 @@ class User extends Authenticatable
 
     public function has_enrolled_in(Course $course)
     {
-        return $this->courses_enrolled()->where('id', $course->id)->exists();
+        return $this->courses_enrolled()->where('id', $course->id)->whereNull('deleted_at')->exists();
     }
 
     public function courses_enrolled()
@@ -97,5 +96,11 @@ class User extends Authenticatable
     {
         return $this->role === Role::PROFESSOR;
     }
+
+    public function is_in_department(Department $department)
+    {
+        return $this->department->id === $department->id;
+    }
+
 
 }
