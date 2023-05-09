@@ -10,10 +10,7 @@ class Enrollment extends Model
 {
     use HasFactory;
 
-    const GRADE_A = 90;
-    const GRADE_B = 80;
-    const GRADE_C = 70;
-    const GRADE_D = 60;
+
 
     protected $fillable = [
         'student_id',
@@ -38,30 +35,25 @@ class Enrollment extends Model
 
     public function enroll(User $student, Course $course): bool
     {
-//if student is enrolled in the course then return false
+        //if student is enrolled in the course then return false
         if ($this->is_enrolled($student, $course)) return false;
 
-//if this course has no prerequisites then enroll them
+        //if this course has no prerequisites then enroll them
         if (!$course->prerequisite) {
-            $this->student_id = $student->id;
-            $this->course_id = $course->id;
-            $this->save();
+            $student->courses()->attach($course->id);
             return true;
         }
-//if this course has prerequisites and student is not enrolled in the course then check if he has passed all the prerequisites
+        //if this course has prerequisites and student is not enrolled in the course then check if he has passed all the prerequisites
         if ($course->prerequisite && $this->hasPassedPrerequisite($student, $course->prerequisite)) {
-            $this->student_id = $student->id;
-            $this->course_id = $course->id;
-            $this->save();
+            $student->courses()->attach($course->id);
             return true;
         }
-
         return false;
     }
 
     public function is_enrolled(User $student, Course $course): bool
     {
-        return $this->student_id === $student->id && $this->course_id === $course->id;
+        return $this->student_id === $student->id && $this->course_id === $course->id && !$course->trashed();
     }
 
     public function hasPassedPrerequisite(User $student, Course $prerequisite): bool
@@ -79,17 +71,17 @@ class Enrollment extends Model
 
     public function has_passed(Enrollment $enrollment): bool
     {
-        return $enrollment->grade >= self::GRADE_D;
+        return $enrollment->grade >= Grades::GRADE_D;
     }
 
     public function letter_grade(): string
     {
         $numeric_grade = $this->grade;
 
-        if ($numeric_grade >= self::GRADE_A) return 'A';
-        elseif ($numeric_grade >= self::GRADE_B) return 'B';
-        elseif ($numeric_grade >= self::GRADE_C) return 'C';
-        elseif ($numeric_grade >= self::GRADE_D) return 'D';
+        if ($numeric_grade >= Grades::GRADE_A) return 'A';
+        elseif ($numeric_grade >= Grades::GRADE_B) return 'B';
+        elseif ($numeric_grade >= Grades::GRADE_C) return 'C';
+        elseif ($numeric_grade >= Grades::GRADE_D) return 'D';
         return 'F';
 
     }
@@ -107,5 +99,16 @@ class Enrollment extends Model
         $this->grade = $new_grade;
         $this->save();
         return true;
+    }
+
+    public function average_grade(): ?float
+    {
+        $grades = $this->student()->pluck('grade')->filter();
+
+        if ($grades->isEmpty()) {
+            return null;
+        }
+
+        return $grades->average();
     }
 }
