@@ -17,6 +17,12 @@ class Course extends Model
         'professor_id',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function department()
     {
         return $this->belongsTo(Department::class);
@@ -51,4 +57,5 @@ class Course extends Model
     {
         return $this->hasMany(Enrollment::class);
     }
+
 }
