@@ -28,6 +28,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+
     protected static function newFactory()
     {
         return UserFactory::new();
