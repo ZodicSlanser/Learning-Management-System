@@ -13,6 +13,7 @@ class UserFactory extends Factory
 
     public function definition()
     {
+        $departments = Department::pluck('id')->toArray();
         return [
             'name' => $this->faker->name,
             'username' => $this->faker->userName,
