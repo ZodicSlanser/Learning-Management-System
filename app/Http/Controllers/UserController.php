@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
-use App\Models\User;
 
 class UserController extends Controller
 {
@@ -19,17 +16,16 @@ class UserController extends Controller
     function checklogin(Request $request)
     {
         $this->validate($request, [
-            'email'   => 'required|email',
-            'password'  => 'required|alphaNum|min:3'
+            'email' => 'required|email',
+            'password' => 'required|alphaNum|min:3'
         ]);
 
         $user_data = array(
-            'email'  => $request->get('email'),
+            'email' => $request->get('email'),
             'password' => $request->get('password')
         );
 
-        if(!(Auth::attempt($user_data)))
-        {
+        if (!(Auth::attempt($user_data))) {
             return back()->with('error', 'Wrong Login Details');
         }
         return redirect('home');
@@ -37,16 +33,13 @@ class UserController extends Controller
 
     function successlogin()
     {
-        if(Auth::user()->role == Role::ADMIN)
-        {
+        if (Auth::user()->role == Role::ADMIN) {
             return view('admin_homepage');
         }
-        if(Auth::user()->role == Role::PROFESSOR)
-        {
+        if (Auth::user()->role == Role::PROFESSOR) {
             return view('professor_homepage');
         }
-        if(Auth::user()->role == Role::STUDENT)
-        {
+        if (Auth::user()->role == Role::STUDENT) {
             return view('student_homepage');
         }
     }

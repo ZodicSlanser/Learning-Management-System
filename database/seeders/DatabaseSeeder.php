@@ -39,10 +39,10 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         User::factory()->create([
-            'name'    => 'Test',
-            'username'    => 'test',
-            'email'    => 'test@test.example',
-            'password'   =>  Hash::make('test'),
+            'name' => 'Test',
+            'username' => 'test',
+            'email' => 'test@test.example',
+            'password' => Hash::make('test'),
             'role' => '1',
         ]);
         $courses = Course::factory()
