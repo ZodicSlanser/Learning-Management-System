@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Department;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,6 +19,9 @@ class User extends Authenticatable
         'password',
         'academic_number',
         'role',
+        'department_id',
+        
+       
     ];
 
     protected $hidden = [
@@ -53,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function departments (){
+        return $this ->hasOne(Department::class,'id','department_id');
+    }
+
 }

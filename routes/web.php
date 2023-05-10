@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\DepartmentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('/courses',CoursesController::class);
+Route::resource('/departments',DepartmentsController::class);
+Route::resource('/users',UsersController::class);
 
 
