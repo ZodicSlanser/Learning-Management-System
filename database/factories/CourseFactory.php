@@ -16,20 +16,24 @@ class CourseFactory extends Factory
         $name = $this->faker->sentence(3);
         $code = $this->faker->unique()->regexify('[A-Z]{3}[0-9]{3}');
 
+        $departmentIds = Department::pluck('id')->toArray();
+        $professorIds = User::where('role', '2')->pluck('id')->toArray();
+
         return [
             'name' => $name,
             'code' => $code,
-            'department_id' => Department::factory()->create()->id,
-            'professor_id' => User::factory()->create(['role' => 'professor'])->id,
+            'department_id' => $this->faker->randomElement($departmentIds),
+            'professor_id' => $this->faker->randomElement($professorIds),
             'prerequisite_id' => null,
         ];
     }
 
     public function configure()
     {
-        return $this->afterMaking(function (Course $course) {
+        return $this->afterCreating(function (Course $course) {
             $prerequisites = Course::where('id', '<>', $course->id)->pluck('id')->toArray();
             $course->prerequisite_id = $this->faker->randomElement(array_merge([null], $prerequisites));
+            $course->save();
         });
     }
 }
