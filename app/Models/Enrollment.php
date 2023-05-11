@@ -110,4 +110,39 @@ class Enrollment extends Model
     {
         return $this->belongsTo(User::class, 'student_id');
     }
+
+    public function is_enrolled2(User $student, Course $course): bool
+    {
+        
+        $enrollment = $this->where('student_id', $student->id)
+        ->where('course_id', $course->id)
+        ->first();
+
+        if ($enrollment) {
+            return true;
+        } else {
+            return false;
+        }
+
+        // return $this->where('student_id', ) === $student->id && $this->course_id === $course->id && !$course->trashed();
+    }
+
+
+    public function can_enroll(User $student, Course $course): bool
+    {
+        //if student is enrolled in the course then return false
+        if ($this->is_enrolled2($student, $course)) return false;
+
+        //if this course has no prerequisites then enroll them
+        if (!$course->prerequisite) {
+            
+            return true;
+        }
+        //if this course has prerequisites and student is not enrolled in the course then check if he has passed all the prerequisites
+        if ($course->prerequisite && $this->hasPassedPrerequisite($student, $course->prerequisite)) {
+            
+            return true;
+        }
+        return false;
+    }
 }
