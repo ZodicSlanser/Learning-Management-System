@@ -21,4 +21,10 @@ class ProfessorsController extends Controller
         return view("professor.professor_show_courses")->with("courses",$courses);
         
     }
+
+    //this function upload files to courses *ezzat*
+    public function uploadFiles()
+    {
+        
+    }
 }
