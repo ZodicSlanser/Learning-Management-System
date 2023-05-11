@@ -11,18 +11,14 @@ class ProfessorsController extends Controller
     public function getCoursesByProfessorId()
     {
         // when we done login this line will get the id of professor that login.
-        //$professorId = auth()->user()->id;
+        $professorId = auth()->user()->id;
 
-        $professorId = 13;
+        //$professorId = 13;
 
         // this line will retrive the courses.
         $courses = Course::where('professor_id', $professorId)->get();
-
-        return $courses;
-        /*
-        we should here return view like this.
+    
         return view("professor.professor_show_courses")->with("courses",$courses);
-        but i just test my api.
-        */
+        
     }
 }
