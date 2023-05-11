@@ -122,5 +122,10 @@ class Course extends Model
         $enrollment->save();
         return true;
     }
+    public static function getCoursesByDepartmentId($departmentId)
+    {
+        return Course::where('department_id', $departmentId)->get();
+    }
+
 
 }

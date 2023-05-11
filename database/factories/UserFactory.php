@@ -13,12 +13,13 @@ class UserFactory extends Factory
 
     public function definition()
     {
+        $departments = Department::pluck('id')->toArray();
         return [
             'name' => $this->faker->name,
             'username' => $this->faker->userName,
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt($this->faker->password),
-            'department_id' => Department::factory(),
+            'department_id' => $this->faker->randomElement($departments),
             'academic_number' => $this->faker->unique()->randomNumber(),
             'role' => Role::STUDENT, // Default to student role.
         ];

@@ -26,6 +26,7 @@
             <strong>Your role is {{ Auth::user()->role }}</strong>
             <br/>
             <a href="{{ url('/logout') }}">Logout</a>
+
         </div>
     @else
         <script>window.location = "/home";</script>
