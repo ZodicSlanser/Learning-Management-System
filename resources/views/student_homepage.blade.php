@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <title>home</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -18,10 +17,10 @@
 <br/>
 <div class="container box">
     @if(isset(Auth::user()->email))
-        <h3 align="center"><strong>This is professor homepage</strong></h3><br/>
+        <h3 align="center">This is student homepage</h3><br/>
 
         <div class="alert alert-danger success-block">
-
+            <strong></strong>x
             <strong>Welcome {{ Auth::user()->email }}</strong>
             <strong>Your role is {{ Auth::user()->role }}</strong>
             <br/>
@@ -33,5 +32,4 @@
     <br/>
 </div>
 </body>
-
 </html>
