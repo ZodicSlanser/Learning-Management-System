@@ -18,6 +18,11 @@ class Course extends Model
         'department_id',
         'professor_id',
     ];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
     public static $rules = [
         'name' => 'required|string|max:255',
@@ -25,11 +30,6 @@ class Course extends Model
         'department_id' => 'required|exists:departments,id',
         'prerequisite_id' => 'nullable|exists:courses,id',
         'professor_id' => 'nullable|exists:users,id',
-    ];
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
     ];
 
     public function department()
@@ -52,13 +52,6 @@ class Course extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function students()
-    {
-        return $this->belongsToMany(User::class, 'enrollments')
-            ->using(Enrollment::class)
-            ->withPivot('grade');
-    }
-
     public function getEnrollments()
     {
         return $this->enrollments()->with('student')->get();
@@ -79,9 +72,27 @@ class Course extends Model
         return $enrollment->save();
     }
 
+    public function save(array $options = [])
+    {
+        self::validate($this->attributes);
+        return parent::save($options);
+    }
+
+    public static function validate(array $data)
+    {
+        return Validator::make($data, self::$rules);
+    }
+
     public function is_enrolled(User $student): bool
     {
         return $this->students()->contains($student);
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'enrollments')
+            ->using(Enrollment::class)
+            ->withPivot('grade');
     }
 
     public function drop(User $student): bool
@@ -117,16 +128,5 @@ class Course extends Model
         return Course::where('department_id', $departmentId)->get();
     }
 
-
-    public static function validate(array $data)
-    {
-        return Validator::make($data, self::$rules);
-    }
-
-    public function save(array $options = [])
-    {
-        self::validate($this->attributes);
-        return parent::save($options);
-    }
 
 }

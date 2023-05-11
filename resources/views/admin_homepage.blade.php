@@ -19,12 +19,13 @@
 <div class="container box">
     @if(isset(Auth::user()->email))
         <h3 align="center"><strong>This is admin homepage</strong></h3><br/>
+
         <div class="alert alert-danger success-block">
-            <strong>Welcome {{ Auth::user()['email'] }}</strong>
+
+            <strong>Welcome {{ Auth::user()->email }}</strong>
             <strong>Your role is {{ Auth::user()->role }}</strong>
             <br/>
             <a href="{{ url('/logout') }}">Logout</a>
-
 
         </div>
     @else
