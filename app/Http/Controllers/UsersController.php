@@ -39,14 +39,23 @@ class UsersController extends Controller
         return view('users.create',['users' =>$user,'departments'=>$department]);
     }
 
+    public function increment()
+    {
+        do {
+            $increment = random_int(100000, 999999);
+        } while (User::where("academic_number", "=", $increment)->first());
+    
+        return $increment;
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         //
+        $increment = self::increment();
         if(isset($_POST['createD'])){
-          // $last3 = DB::table('users')->latest()->value('academic_number');  return last num of acadimic_num
           
             $fields = $request -> validate([
                 'name'=>'required',
@@ -57,7 +66,7 @@ class UsersController extends Controller
                 'role'=>'required',
                 'department_id'=>'required',
             ]);    
-            $users = User::get();
+           $users = User::get();
             foreach ($users as $user) {
                if($user->email==$_POST['email']){
                    return Redirect::route('users.create')->with('statu',"Email $user->email Aredy exist .");
@@ -68,16 +77,18 @@ class UsersController extends Controller
                 'username'=>$request->username,
                 'email'=>$request->email,
                 'password'=>Hash::make($request->password),
-                'academic_number'=>'555594',
+                'academic_number'=>$increment,
                 'role'=>$request->role,
                 'department_id'=>$request->department_id,
                 'remember_token'=>Str::random(60), 
                 ]);
             
-           // dd($fields,$last3);
+         //   dd($fields,$increment);
                 return Redirect::route('users.index')->with('status',"Create sucessfuly .");
 
            }
+
+           
 
     }
 
@@ -129,8 +140,6 @@ class UsersController extends Controller
                 'role'=>$request->role,
                 'department_id'=>$request->department_id,
                 'remember_token'=>Str::random(60), 
-                
-                
                 ]);
         
                 return Redirect::route('users.show',$user->id)->with('status',"Update sucessfuly .");
@@ -141,16 +150,17 @@ class UsersController extends Controller
 
            }
 
-           
-    
-
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy( User $user)
     {
         //
+        $check = DB::table('enrollments')->where('student_id',$user->id)->first(); 
+        if($check!=""){
+            return Redirect::route('users.index',$user->id)->with('warning','Warning can not Deleted .');
+
+        }
         $user ->delete();
         return Redirect::route('users.index',$user->id)->with('status','Deleted Sucessfuly .');
     }

@@ -28,7 +28,7 @@ class Course extends Model
     {
         return $this->belongsTo(Course::class,'prerequisite_id');
     }
-
+  
     public function professor()
     {
         return $this->belongsTo(User::class, 'professor_id');

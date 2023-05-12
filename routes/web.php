@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\GenerateController;
 use App\Http\Controllers\DepartmentsController;
 
 /*
@@ -23,5 +24,6 @@ Route::get('/', function () {
 Route::resource('/courses',CoursesController::class);
 Route::resource('/departments',DepartmentsController::class);
 Route::resource('/users',UsersController::class);
+Route::resource('/generate',GenerateController::class);
 
 

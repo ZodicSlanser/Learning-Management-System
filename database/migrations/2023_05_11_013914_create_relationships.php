@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('department_id')->references('id')->on('departments');
         });
@@ -19,6 +20,12 @@ return new class extends Migration
             $table->foreign('prerequisite_id')->references('id')->on('courses');
             $table->foreign('professor_id')->references('id')->on('users');
         });
+
+       /* Schema::table('enrollements', function (Blueprint $table) {
+            $table->foreign('student_id')->references('id')->on('users');
+            $table->foreign('course_id')->references('id')->on('courses');
+
+        });*/
     }
 
     /**
@@ -26,6 +33,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        //
         Schema::dropIfExists('relationships');
     }
 };

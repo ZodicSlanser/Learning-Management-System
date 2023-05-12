@@ -85,7 +85,7 @@
 
 
         <div>
-            <button class="btn btn-success" type="submit" >Save</button>
+            <button name="create" class="btn btn-success" type="submit" >Save</button>
         </div>
     </form>
     @endsection

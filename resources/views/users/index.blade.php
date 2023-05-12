@@ -21,7 +21,12 @@
     
 </div>
     @endif
-
+@if (session('warning'))
+    <div class="alert alert-danger">
+          {{ session('warning') }}
+    
+</div>
+    @endif
     <h1>
       <a href="{{route('users.create')}}"> ADD NEW ACCOUNT
           
@@ -102,6 +107,7 @@
 
   @endforeach
   <a href="{{route('courses.index')}}" class="btn btn-primary">Courses</a>
+  <a href="{{route('generate.index')}}" class="btn btn-primary">Generate</a>
   <a href="{{route('departments.index')}}" class="btn btn-primary">Departments</a>
 {{ $users->links() }}
 @endsection

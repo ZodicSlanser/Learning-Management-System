@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Document</title>
 </head>
 <body>
@@ -47,7 +48,7 @@
         </div>
     @endforeach
    <a href="{{route('courses.index')}}" class="btn btn-primary">Courses</a>
-   {{ $departments->links() }}
+   <a href="{{route('generate.index')}}" class="btn btn-primary">Generate</a>
    <a href="{{route('users.index')}}" class="btn btn-primary">Users</a>
    {{ $departments->links() }}
     @endsection

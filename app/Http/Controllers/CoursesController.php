@@ -8,6 +8,7 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 
 class CoursesController extends Controller
@@ -18,7 +19,7 @@ class CoursesController extends Controller
     public function index()
     {
         //
-        $courses = Course::where('prerequisite_id', '!=',"")->paginate(15);
+        $courses = Course::where('prerequisite_id', '!=',"")->paginate(10);
         return view('courses.index',['courses'=>$courses]);
     }
 
@@ -41,6 +42,8 @@ class CoursesController extends Controller
     public function store(Request $request)
     {
         //
+
+
         $formFields = $request -> validate([
       
             'name'=>'required',
@@ -49,11 +52,13 @@ class CoursesController extends Controller
             'department_id'=>'required',
             'professor_id'=>'required',
        
-    ]);
+    ]);     
+    
+     Storage::disk('local')->makeDirectory($formFields['name'], 'Contents');
  
-   Course::create($formFields);
+    Course::create($formFields);
 
-   return Redirect::route('courses.index')->with('status',"Create sucessfuly .");
+    return Redirect::route('courses.index')->with('status',"Create sucessfuly .");
    
     }
 
@@ -111,11 +116,13 @@ class CoursesController extends Controller
     {
         //
          $check = DB::table('courses')->where('prerequisite_id',$course->id)->first(); 
-      // $check2 = DB::table('users')->where('department_id',$department->id)->first(); 
+         $check2 = DB::table('enrollments')->where('course_id',$course->id)->first(); 
 
        if($check!=""){
         return Redirect::route('courses.index')->with('warning','Warning CanNot Deleted Delete Child First.');
-
+       }
+       elseif ($check2!="") {
+        return Redirect::route('courses.index')->with('warning','Warning CanNot Deleted Delete Child First.');
        }
        else{
         $course ->delete();

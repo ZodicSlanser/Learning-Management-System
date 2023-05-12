@@ -20,8 +20,7 @@ class User extends Authenticatable
         'academic_number',
         'role',
         'department_id',
-        
-       
+        'remember_token',
     ];
 
     protected $hidden = [
