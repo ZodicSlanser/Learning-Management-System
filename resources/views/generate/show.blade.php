@@ -439,7 +439,7 @@
 
 
                 <form action="" method="">
-                    <button name="download" type="submit" style="margin-top: 60px;margin-left: -20px;background-color: cornflowerblue">Download<button>
+                    <button name="download" type="submit" style="margin-top: 60px;margin-left: -20px;background-color: cornflowerblue;cursor: pointer;">Download<button>
                 </form>
 
 
@@ -550,9 +550,10 @@
               <div class="icon"></div>
             </div>
             <div class="icon-desc">    
-                    <a href="{{route('generate.index')}}"><button style="background-color: cornflowerblue">Back</button></a>
+                    <a href="{{route('generate.index')}}"><button style="background-color: cornflowerblue;cursor: pointer;">Back select </button></a>
             </div>
-            <div class="icon-desc">Delete</div>
+            <div class="icon-desc"><a href="{{route('courses.index')}}"><button style="background-color: cornflowerblue;cursor: pointer;">Back courses</button></a>
+            </div>
             <div class="icon-desc">Format</div>
             <div class="icon-bar__name">Cells</div>
           </div>
@@ -604,7 +605,11 @@
     
           <input  class="cells__input" value="{{$info->student->academic_number}}"/>
           <input class="cells__input" value="{{$info->student->name}}"/>
-          <input class="cells__input"/>
+          <form action="" method="post">
+            @csrf
+            @method('Delete')
+          <input type="submit" value="delete" style=" font-weight: bold; cursor: pointer;background-color: rgb(183, 0, 0);width: 127px;height: 25px"/>
+          </form> 
           <input class="cells__input"/>
           <input class="cells__input"/>
           <input class="cells__input"/>

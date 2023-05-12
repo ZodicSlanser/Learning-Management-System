@@ -68,8 +68,18 @@ class GenerateController extends Controller
      */
     public function show(string $id)
     {
-        //
-    
+        // old one use the select
+       
+       /*  $course = $_POST['course'];
+           $courses=Enrollment::where('course_id','=',$course)->with('student','course')->get();
+           $ncourse = Course::where('id',$course)->get();
+           return view('generate.show',['information'=>$courses,'ncourses'=>$ncourse]);}*/
+
+       // new one in click the course show , generate of thes course
+
+           $courses=Enrollment::where('course_id','=',$id)->with('student','course')->get();
+           $ncourse = Course::where('id',$id)->get();
+           return view('generate.show',['information'=>$courses,'ncourses'=>$ncourse]);
        
     }
 
@@ -95,6 +105,8 @@ class GenerateController extends Controller
      */
     public function destroy(Enrollment $enroll)
     {
-        //
+        //write this in action           <!--{{route('generate.destroy',$info->academic_number)}}-->
+      // $enroll->destroy();
+    
     }
 }

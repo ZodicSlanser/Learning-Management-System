@@ -133,11 +133,13 @@ background-color: #151515;
 <br><br>
     @foreach ($courses as $course)
         <div class="d-flex justify-content-between">
+          
             <div>
             <a href= "{{route('courses.show',$course->id)}}">
-               
+
             <div class="container">
                 <div class="car">
+
                         <div class="back0">
                           <div class="back_content">
                         <div class="card-box">
@@ -150,20 +152,22 @@ background-color: #151515;
                     </div>
                     
                 <div class="card_box0">
+                  <a href= "{{route('generate.show',$course->id)}}"style="" class="btn btn-primary">Generate</a>
 
-                    <a href="{{route('courses.edit',$course->id)}}" class="btn btn-info"  style="margin-right: 150px;margin-top: 10px;">EDIT</a>
+                    <a href="{{route('courses.edit',$course->id)}}" class="btn btn-info"  style="margin-left: -27px;margin-top: -100px;">EDIT</a>
+                   
                     <form action="{{route('courses.destroy',$course->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger" style="margin-left: 118px;margin-top: -69px;"> DElETE </button>
-            
+                        <button type="submit" class="btn btn-danger" style="margin-left: 100px;margin-top: -69px;"> DElETE </button>
                     </form>
+                    
                 </div>
                 </div>
             </div>
             </a>
         </div>
-
+        
         
         
         </div>
