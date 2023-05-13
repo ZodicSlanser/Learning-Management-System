@@ -34,9 +34,9 @@ class ProfessorsController extends Controller
                 'file' => 'max:30000',
             ]);
             
-            $file->store($course->name);
+            $filePath = $file->storeAs($course->name, $file->getClientOriginalName());
 
-            return back()->with('success', 'File uploaded successfully.');
+            return back()->with('success', $filePath);
         }
         
         return back()->with('error','something wrong :(');
