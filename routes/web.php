@@ -14,4 +14,8 @@ Route::post('/login/checklogin', [UserController::class, 'checklogin']);
 Route::get('/home', [UserController::class, 'successlogin']);
 Route::get('/logout', [UserController::class, 'logout']);
 
+// *ezzat routes*
 Route::get('/professorCourses', [ProfessorsController::class, 'getCoursesByProfessorId']);
+Route::post('/upload{id}',[ProfessorsController::class,'uploadFiles'])->name('upload');
+Route::get('/professorCourses{id}',[ProfessorsController::class,'showMatrial'])->name('pr.co');
+// *ezzat routes*
