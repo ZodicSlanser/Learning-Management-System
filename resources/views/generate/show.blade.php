@@ -550,9 +550,8 @@
               <div class="icon"></div>
             </div>
             <div class="icon-desc">    
-                    <a href="{{route('generate.index')}}"><button style="background-color: cornflowerblue;cursor: pointer;">Back select </button></a>
             </div>
-            <div class="icon-desc"><a href="{{route('courses.index')}}"><button style="background-color: cornflowerblue;cursor: pointer;">Back courses</button></a>
+            <div class="icon-desc"><a href="{{route('courses.index')}}"><button style="background-color: cornflowerblue;cursor: pointer;">courses</button></a>
             </div>
             <div class="icon-desc">Format</div>
             <div class="icon-bar__name">Cells</div>

@@ -15,14 +15,7 @@ class GenerateController extends Controller
      */
     public function index()
     {
-        //
-       /* $courses = Course::get();
-        $course = Course::where('course_id','=',$courses->$id)
-        $student = User::where('','=',);*/
-
-        $course = Course::where('prerequisite_id', '!=',"")->get();
-        
-        return view('generate.index',['courses'=>$course]);
+       
     }
 
     /**
@@ -39,14 +32,7 @@ class GenerateController extends Controller
     public function store(Request $request)
     {
         //
-        if(isset($_POST['show'])){
-            
-           $course = $_POST['course'];
-           $courses=Enrollment::where('course_id','=',$course)->with('student','course')->get();
-           $ncourse = Course::where('id',$course)->get();
-           return view('generate.show',['information'=>$courses,'ncourses'=>$ncourse]);
-        
-    }
+    
 
     // Delete the user in table rollments
 
