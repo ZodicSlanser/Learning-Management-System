@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Course;
 use App\Models\Department;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class CoursesController extends Controller
 {
@@ -19,8 +18,36 @@ class CoursesController extends Controller
     public function index()
     {
         //
-        $courses = Course::where('prerequisite_id', '!=',"")->paginate(10);
-        return view('courses.index',['courses'=>$courses]);
+        $courses = Course::paginate(10);
+        foreach ($courses as $course) {
+            if(!$course->prerequisite_id){
+                $course->prerequisite_id = 'none';
+            }
+        }
+        return view('courses.index', ['courses' => $courses]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $formFields = $request->validate([
+
+            'name' => 'required',
+            'code' => 'required',
+            'prerequisite_id' => 'required',
+            'department_id' => 'required',
+            'professor_id' => 'required',
+
+        ]);
+
+        Storage::disk('local')->makeDirectory($formFields['name'], 'Contents');
+
+        Course::create($formFields);
+
+        return Redirect::route('courses.index')->with('status', "Created successfully .");
+
     }
 
     /**
@@ -29,37 +56,12 @@ class CoursesController extends Controller
     public function create()
     {
         //
-        $doctors  = DB::table('users')->where('role', '=', 2)->get();
+        $doctors = DB::table('users')->where('role', '=', Role::PROFESSOR)->get();
         $courses = Course::get();
         $departments = Department::get();
-       
-        return view('courses.create',['departments' =>$departments,'courses'=>$courses,'doctors'=>$doctors]);
 
-    }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('courses.create', ['departments' => $departments, 'courses' => $courses, 'doctors' => $doctors]);
 
-
-        $formFields = $request -> validate([
-      
-            'name'=>'required',
-            'code'=>'required',
-            'prerequisite_id'=>'required',
-            'department_id'=>'required',
-            'professor_id'=>'required',
-       
-    ]);     
-    
-     Storage::disk('local')->makeDirectory($formFields['name'], 'Contents');
- 
-    Course::create($formFields);
-
-    return Redirect::route('courses.index')->with('status',"Create sucessfuly .");
-   
     }
 
     /**
@@ -68,10 +70,10 @@ class CoursesController extends Controller
     public function show(string $id)
     {
         //
-      
-        $course = Course::where('id','=',$id)->with('department','professor','course')->first();
-       
-        return view( 'courses.show' , [ 'courses' => $course ]);
+
+        $course = Course::where('id', '=', $id)->with('department', 'professor', 'course')->first();
+
+        return view('courses.show', ['courses' => $course]);
     }
 
     /**
@@ -80,10 +82,10 @@ class CoursesController extends Controller
     public function edit(Course $course)
     {
         //
-        $doctors  = DB::table('users')->where('role', '=', 2)->get();
+        $doctors = DB::table('users')->where('role', '=', Role::PROFESSOR)->get();
         $departments = Department::get();
-       
-        return view('courses.edit',['departments' =>$departments,'courses'=>$course,'doctors'=>$doctors]);
+
+        return view('courses.edit', ['departments' => $departments, 'courses' => $course, 'doctors' => $doctors]);
     }
 
     /**
@@ -91,42 +93,31 @@ class CoursesController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
-        $formFields = $request -> validate([
-      
-            'name'=>'required',
-            'code'=>'required',
-            'prerequisite_id'=>'required',
-            'department_id'=>'required',
-            'professor_id'=>'required',
-       
-    ]);
+        $formFields = $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'prerequisite_id' => 'required',
+            'department_id' => 'required',
+            'professor_id' => 'required',
+        ]);
 
-    $course->update($formFields);
+        $course->update($formFields);
 
-    return Redirect::route('courses.show', $course->id)->with('status',"Update Successfuly .");
+        return Redirect::route('courses.show', $course->id)->with('status', "Updated Successfully");
     }
-
-
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Course $course)
     {
-        //
-         $check = DB::table('courses')->where('prerequisite_id',$course->id)->first(); 
-         $check2 = DB::table('enrollments')->where('course_id',$course->id)->first(); 
-
-       if($check!=""){
-        return Redirect::route('courses.index')->with('warning','Warning CanNot Deleted Delete Child First.');
-       }
-       elseif ($check2!="") {
-        return Redirect::route('courses.index')->with('warning','Warning CanNot Deleted Delete Child First.');
-       }
-       else{
-        $course ->delete();
-        return Redirect::route('courses.index')->with('status','Deleted Sucessfuly .');
-      }
+        //get all prerequisites of the course
+        $prerequisites = Course::where('prerequisite_id', '=', $course->id)->get();
+        foreach ($prerequisites as $prerequisite) {
+            $prerequisite->prerequisite_id = null;
+            $prerequisite->save();
+        }
+        $course->delete();
+        return Redirect::route('courses.index')->with('status', 'Deleted Successfully, all dependant courses are now prerequisite-less');
     }
 }
