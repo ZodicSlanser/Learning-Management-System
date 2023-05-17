@@ -24,7 +24,7 @@
                 </button>
                   <div class="dropdown-content">
                     <a href={{route('pr.co' , $item->id)}}>Upload</a>
-                    <a href="#">View</a>
+                    <a href={{route('viewStudent', $item->id)}}>View</a>
                    
                   </div>
                 </div>

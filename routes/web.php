@@ -18,4 +18,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 Route::get('/professorCourses', [ProfessorsController::class, 'getCoursesByProfessorId']);
 Route::post('/upload{id}',[ProfessorsController::class,'uploadFiles'])->name('upload');
 Route::get('/professorCourses{id}',[ProfessorsController::class,'showMatrial'])->name('pr.co');
+Route::get('/showStudents{id}',[ProfessorsController::class,'showStudents'])->name('viewStudent');
+Route::get('/student/edit{id}/course{course}',[ProfessorsController::class,'edit'])->name('student.edit');
+Route::post('/student/edit{id}/course{course}',[ProfessorsController::class,'update'])->name('student.update');
 // *ezzat routes*

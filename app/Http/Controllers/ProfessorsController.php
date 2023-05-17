@@ -3,8 +3,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Course;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProfessorsController extends Controller
 {
@@ -43,11 +46,48 @@ class ProfessorsController extends Controller
         
     }
 
+    //this function find Course that i clicked on it *ezzat*
     public function showMatrial($id)
     {
 
         $course = Course::find($id);
         return view("professor.show_course_matrial")->with("course",$course);
 
+    }
+
+    //this function return all students that in this course i clicked *ezzat*
+    public function showStudents($id)
+    {
+        $studentsEnreolment = Enrollment::where('course_id', $id)->get();
+        $size = 0;
+        foreach($studentsEnreolment as $item)
+        {
+            $studentid = $item->student_id;
+            $studentname[$size] = User::find($studentid);
+            $size++;
+        }
+        return view('professor.show_Students')->with("studentE",$studentsEnreolment)->with("studentU",$studentname);
+    }
+
+    //this function return student i want edit on it *ezzat*
+    public function edit($id,$course)
+    {
+        $studegre = Enrollment::where('student_id', $id)
+                                ->where('course_id',$course)
+                                ->first();
+
+        return view('professor.editStudent')->with("stuD",$studegre);
+        //return dd($studegre);
+    }
+
+    //this function update the grade of student *ezzat*
+    public function update(Request $request,$id,$course)
+    {
+        DB::table('enrollments')
+        ->where('student_id', $id)
+        ->where('course_id', $course)
+        ->update(['grade' => $request->stugrade]);
+
+        return redirect('/professorCourses');
     }
 }
