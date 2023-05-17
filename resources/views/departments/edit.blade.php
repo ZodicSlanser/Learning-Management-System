@@ -7,25 +7,25 @@
     <title>Document</title>
 </head>
 <body>
-    @extends('extend')
-    @section('content')
-    
+@extends('extend')
+@section('content')
+
     <form action="{{route('departments.update',$departments->id)}}" method="post">
         @csrf
         @method('put')
         <div>
-        <label>Name</label>
-        <input  class="form-control" type="text"  placeholder="Name" name="name" value="{{$departments ->name }}">
-        @error('name')
+            <label>Name</label>
+            <input class="form-control" type="text" placeholder="Name" name="name" value="{{$departments ->name }}">
+            @error('name')
             <div class="alert alert-danger">
                 {{ $message }}
             </div>
-        @enderror
+            @enderror
         </div>
 
         <div>
             <label>Code</label>
-            <input  class="form-control" type="text"  placeholder="code" name="code" value="{{$departments ->code}}">
+            <input class="form-control" type="text" placeholder="code" name="code" value="{{$departments ->code}}">
             @error('code')
             <div class="alert alert-danger">
                 {{ $message }}
@@ -33,12 +33,11 @@
             @enderror
         </div>
 
-          
 
         <div>
-            <button  class="btn btn-success" type="submit" >EDiT</button>
+            <button class="btn btn-success" type="submit">EDiT</button>
         </div>
     </form>
-    @endsection
+@endsection
 </body>
 </html>
