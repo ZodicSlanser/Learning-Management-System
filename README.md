@@ -28,12 +28,12 @@
 * [Contributing](#contributing)
 * [Authors](#authors)
 
-
 ## About The Project
 
 ![Index Page Image](PLACEHOLDER)
 
-A Simple LMS built as a mini-project for SWE-2 (CS352) under the supervision of Eng. Ahmed EL-Batanouni to apply concepts of Backend development and Containerization
+A Simple LMS built as a mini-project for SWE-2 (CS352) under the supervision of Eng. Ahmed EL-Batanouni to apply
+concepts of Backend development and Containerization
 
 ## Built With
 
@@ -43,8 +43,8 @@ A Simple LMS built as a mini-project for SWE-2 (CS352) under the supervision of 
 
 **Containerization Service:** Docker
 
-**Miscellaneous:** Github Actions, [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images), [Docker Login](https://github.com/marketplace/actions/docker-login)
-
+**Miscellaneous:** Github
+Actions, [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images), [Docker Login](https://github.com/marketplace/actions/docker-login)
 
 ## Getting Started
 
@@ -57,15 +57,16 @@ To get a local copy up and running follow these simple example steps.
 ```sh
 npm install npm@latest -g
 ```
+
 * laravel
 
 ```sh
 composer global require laravel/installer
 ```
+
 Make sure that either **MySQL** or **MariaDB** are installed either manually or via **phpMyAdmin**
 
 ### Installation
-
 
 Clone the project
 
@@ -84,6 +85,7 @@ Install dependencies
 ```bash
   composer install
 ```
+
 ```bash
   npm install
 ```
@@ -97,29 +99,31 @@ Make the migrations to update the database
 ```bash
     php artisan migrate
 ```
+
 Seed the Database
 
 ```bash
     php artisan db:seed
 ```
 
-
 Start the server and run watch
 
 ```bash
     php artisan serve
 ```
+
 ```bash
     npx run watch
 ````
 
 or alternatively run the .bat
+
 ```bash
     /autorun.bat
 ```
 
-
 go to the following route
+
 ```
     http://127.0.0.1:8000/
 ```
@@ -132,7 +136,9 @@ go to the following route
 
 Any contributions you make are **greatly appreciated**.
 
-* If you have suggestions for adding or removing projects, feel free to [open an issue](https://github.com/ZodicSlanser/Learning-Management-System/issues/new) to discuss it, or directly create a pull request after you edit the *README.md* file with necessary changes.
+* If you have suggestions for adding or removing projects, feel free
+  to [open an issue](https://github.com/ZodicSlanser/Learning-Management-System/issues/new) to discuss it, or directly
+  create a pull request after you edit the *README.md* file with necessary changes.
 * Please make sure you check your spelling and grammar.
 * Create individual PR for each suggestion.
 * Make sure to add a meaningful description
