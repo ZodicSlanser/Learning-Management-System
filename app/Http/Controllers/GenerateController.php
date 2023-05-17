@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 
 class GenerateController extends Controller
@@ -15,7 +14,7 @@ class GenerateController extends Controller
      */
     public function index()
     {
-       
+        return view('generate/show');
     }
 
     /**
@@ -31,42 +30,20 @@ class GenerateController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    
 
-    // Delete the user in table rollments
-
-    if(isset($_POST['delete'])){
-
-        return Redirect::route('generate.index')->with('status','Deleted Sucessfuly .');
-    }
-
-    // update the name in table users 
-
-    elseif(isset($_POST['edit'])){
-        return Redirect::route('generate.show')->with('status','update Sucessfuly .');
 
     }
-}
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        // old one use the select
-       
-       /*  $course = $_POST['course'];
-           $courses=Enrollment::where('course_id','=',$course)->with('student','course')->get();
-           $ncourse = Course::where('id',$course)->get();
-           return view('generate.show',['information'=>$courses,'ncourses'=>$ncourse]);}*/
 
-       // new one in click the course show , generate of thes course
+        $enrollment = Enrollment::where('course_id', '=', $id)->with('student', 'course')->get();
+        $courses = Course::where('id', $id)->get();
+        return view('generate.show', ['enrollments' => $enrollment, 'courses' => $courses]);
 
-           $courses=Enrollment::where('course_id','=',$id)->with('student','course')->get();
-           $ncourse = Course::where('id',$id)->get();
-           return view('generate.show',['information'=>$courses,'ncourses'=>$ncourse]);
-       
     }
 
     /**
@@ -83,7 +60,7 @@ class GenerateController extends Controller
     public function update(Request $request, string $id)
     {
         //
-      
+
     }
 
     /**
@@ -92,7 +69,31 @@ class GenerateController extends Controller
     public function destroy(Enrollment $enroll)
     {
         //write this in action           <!--{{route('generate.destroy',$info->academic_number)}}-->
-      // $enroll->destroy();
-    
+        // $enroll->destroy();
+
+    }
+
+    public function deleteEnrollment()
+    {
+        $enrollment = Enrollment::where('id', '=', request()->enrollment_id)->first();
+        $enrollment->delete();
+        return Redirect::route('generate.show',request()->course_id)->with('status', "Deleted successfully .");
+    }
+
+   //get all students' names and academic numbers write them to a csv then return a response that would download them
+    public function download($course_id)
+    {
+        $students = Enrollment::where('course_id', $course_id)->with('student', 'course')->get();
+        $filename = Course::where('id', $course_id)->first()->name . ' students.csv';
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, array('Academic Number', 'Name'));
+        foreach ($students as $student) {
+            fputcsv($handle, array($student->student->academic_number, $student->student->name));
+        }
+        fclose($handle);
+        $headers = array(
+            'Content-Type' => 'text/csv',
+        );
+        return response()->download($filename, $filename, $headers);
     }
 }
