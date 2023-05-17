@@ -15,7 +15,7 @@
                     @csrf
                     <div class="form-group">
                         <label>Grade</label>
-                        <input type="number" value="{{$stuD->grade}}" name="stugrade" class="form-control" placeholder="Your grade">
+                        <input type="number" value="{{$stuD->grade}}" name="stugrade" class="form-control" placeholder="New grade">
                     </div>
                     <button class="btn btn-warning">Update Data</button>
                 </form>
