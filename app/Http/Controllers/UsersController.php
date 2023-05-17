@@ -49,7 +49,6 @@ class UsersController extends Controller
             foreach ($users as $user) {
                 if ($user->email == $_POST['email']) {
                     return Redirect::route('users.create')->with('status', "Email $user->email Already exists");
-                    break;
                 }
             }
             $formFields = User::create([
