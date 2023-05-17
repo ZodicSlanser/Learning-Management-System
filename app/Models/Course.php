@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
@@ -25,7 +25,7 @@ class Course extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class,'prerequisite_id');
+        return $this->belongsTo(Course::class, 'prerequisite_id');
     }
 
     public function professor()
