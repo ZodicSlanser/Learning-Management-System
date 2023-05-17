@@ -127,5 +127,8 @@ class Course extends Model
         return Course::where('department_id', $departmentId)->get();
     }
 
-
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'prerequisite_id');
+    }
 }

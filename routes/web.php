@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\GenerateController;
 use App\Http\Controllers\ProfessorsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 
