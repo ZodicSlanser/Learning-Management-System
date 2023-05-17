@@ -102,6 +102,10 @@ class User extends Authenticatable
     {
         return $this->department->id === $department->id;
     }
+    public function departments()
+    {
+        return $this->hasOne(Department::class, 'id', 'department_id');
+    }
 
 
 
