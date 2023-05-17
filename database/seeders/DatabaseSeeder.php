@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\Enrollment;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,6 +38,13 @@ class DatabaseSeeder extends Seeder
             ->count(100)
             ->create();
 
+        User::factory()->create([
+            'name' => 'Test',
+            'username' => 'test',
+            'email' => 'test@test.example',
+            'password' => Hash::make('test'),
+            'role' => '1',
+        ]);
         $courses = Course::factory()
             ->count(100)
             ->state(function (array $attributes) use ($departments, $professors) {
