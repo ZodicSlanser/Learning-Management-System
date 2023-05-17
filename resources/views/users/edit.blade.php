@@ -79,7 +79,11 @@
         </div>
         <div>
             <br>
-            <span><input name="role" type="radio" value="{{$users->role}}" checked> {{$users->role}} </span>
+            <span><input name="role" type="radio" value="{{$users->role}}" checked> @if($users->role=="2"){{"Doctors"}}
+            @else 
+            {{"Students"}}
+            @endif
+            </span>
 
             @error('role')
             <div class="alert alert-danger">
