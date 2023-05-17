@@ -40,6 +40,8 @@
             echo '<div class="file-link">';
             echo '<i class="fa fa-file"></i>';
             echo '<a href="' . $filePath . '" download>' . $file . '</a>';
+            echo '<br>';
+            echo '<a href="' . route('delete.file', ['id' => $course->id, 'filename' => $file]) . '"> Delete</a>';
             echo '</div>';
 
             }

@@ -90,4 +90,18 @@ class ProfessorsController extends Controller
 
         return redirect('/professorCourses');
     }
+
+    //this function Delete the file *ezzat*
+    public function deleteFile($id, $filename)
+    {
+        $course = Course::find($id);
+        $filePath = storage_path('app/' . $course->name . '/' . $filename);
+
+        if (file_exists($filePath)) {
+            unlink($filePath);
+            return back()->with('success', 'File deleted successfully :)');
+        }
+
+        return back()->with('error', 'File not found :(');
+    }
 }

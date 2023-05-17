@@ -21,4 +21,5 @@ Route::get('/professorCourses{id}',[ProfessorsController::class,'showMatrial'])-
 Route::get('/showStudents{id}',[ProfessorsController::class,'showStudents'])->name('viewStudent');
 Route::get('/student/edit{id}/course{course}',[ProfessorsController::class,'edit'])->name('student.edit');
 Route::post('/student/edit{id}/course{course}',[ProfessorsController::class,'update'])->name('student.update');
+Route::get('/professorCourses{id}/delete{filename}', [ProfessorsController::class,'deleteFile'])->name('delete.file');
 // *ezzat routes*
