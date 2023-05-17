@@ -7,87 +7,85 @@
     <title>courses create</title>
 </head>
 <body>
-    @extends('extend')
-    @section('content')
-    
+@extends('extend')
+@section('content')
+
     <form action="/courses" method="post">
         @csrf
         <div>
-        <label>Name</label>
-        <input class="form-control" type="text"  placeholder="Name" name="name" value="{{ old('name') }}">
-        @error('name')
+            <label>Name</label>
+            <input class="form-control" type="text" placeholder="Name" name="name" value="{{ old('name') }}">
+            @error('name')
             <div class="alert alert-danger">
-              {{ $message  }}
+                {{ $message  }}
             </div>
-        @enderror
+            @enderror
         </div>
 
         <div>
             <label>Code</label>
-            <input class="form-control" type="text"  placeholder="code" name="code" value="{{ old('code') }}">
+            <input class="form-control" type="text" placeholder="code" name="code" value="{{ old('code') }}">
 
             @error('code')
-        <div class="alert alert-danger">
-           {{ $message }}
+            <div class="alert alert-danger">
+                {{ $message }}
 
-        </div>
+            </div>
 
             @enderror
         </div>
 
-            <div>
-                <label>Department_id</label>
+        <div>
+            <label>Department_id</label>
 
-                <select  class="form-control" name="department_id">
-                    <option value=" . ">departments</option>
-                 @foreach ($departments as $department)
-                     <option value=" {{$department ->id}} ">{{$department ->name}}</option>
-                 @endforeach
-                 @error('department_id')
-                     
-                 @enderror
-                </select>  
+            <select class="form-control" name="department_id">
+                <option value=" . ">departments</option>
+                @foreach ($departments as $department)
+                    <option value=" {{$department ->id}} ">{{$department ->name}}</option>
+                @endforeach
+                @error('department_id')
+
+                @enderror
+            </select>
 
         </div>
 
         <div>
             <label>prerequisite Subjects</label>
 
-            <select  class="form-control"  name = "prerequisite_id" >
+            <select class="form-control" name="prerequisite_id">
                 <option value=" . ">prerequisite</option>
-             @foreach ($courses as $course)
-                 <option value=" {{$course ->id}} ">{{$course ->name}}</option>
-             @endforeach
-             @error('prerequisite_id')
-                 
-             @enderror
-            </select>  
+                @foreach ($courses as $course)
+                    <option value=" {{$course ->id}} ">{{$course ->name}}</option>
+                @endforeach
+                @error('prerequisite_id')
 
-    </div>
+                @enderror
+            </select>
 
-    <div>
-        <label>Professor OF Subjects</label>
+        </div>
 
-        <select  class="form-control" name="professor_id">
-            <option value=" . ">professor</option>
-         @foreach ($doctors as $doctor)
-             <option value=" {{$doctor ->id}} ">{{$doctor ->name}}</option>
-         @endforeach
-         @error('professor_id')
-             
-         @enderror
-        </select> 
-    
+        <div>
+            <label>Professor OF Subjects</label>
 
-</div>
+            <select class="form-control" name="professor_id">
+                <option value=" . ">professor</option>
+                @foreach ($doctors as $doctor)
+                    <option value=" {{$doctor ->id}} ">{{$doctor ->name}}</option>
+                @endforeach
+                @error('professor_id')
+
+                @enderror
+            </select>
 
 
+        </div>
 
 
         <div>
-            <button name="create" class="btn btn-success" type="submit" >Save</button>
+            <button name="create" class="btn btn-success" type="submit">Save</button>
         </div>
     </form>
-    @endsection
+@endsection
 </body>
 </html>
