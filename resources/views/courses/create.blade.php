@@ -70,6 +70,7 @@
 
             <select class="form-control" name="professor_id">
                 <option value=" . ">professor</option>
+                
                 @foreach ($doctors as $doctor)
                     <option value=" {{$doctor ->id}} ">{{$doctor ->name}}</option>
                 @endforeach
