@@ -38,8 +38,15 @@
     <br><br>
     <span class="h2" id="h"> Department_Name : </span> <span class="h3" id="hh"> {{$courses ->department ->name}}</span>
     <br><br>
-    <span class="h2" id="h"> Depends on the Subject : </span> <span class="h3"
-                                                                    id="hh"> {{$courses ->Course->name}}</span>
+
+    <span class="h2" id="h"> Depends on the Subject : </span> <span class="h3" id="hh">@if($courses ->prerequisite_id==null)
+            {{"not prerequisite"}}
+
+        @else
+
+            {{$courses ->course->name}}
+
+        @endif</span>
     <br><br>
     <span class="h2" id="h"> Professor Subject : </span> <span class="h3" id="hh"> {{$courses ->professor->name}}</span>
     <br><br>

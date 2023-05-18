@@ -81,7 +81,9 @@
                 <label>Professor OF Subjects</label>
 
                 <select class="form-control" name="professor_id">
-                    <option value="{{$courses ->professor->id}}">{{$courses ->professor->name}}</option>
+                    <option value="{{$courses->professor->id}} ">
+                        {{$courses->professor->name}}
+                    </option>
                     @foreach ($doctors as $doctor)
                         <option value=" {{$doctor ->id}} ">{{$doctor ->name}}</option>
                     @endforeach

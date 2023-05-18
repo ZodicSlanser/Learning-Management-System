@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link  href="{{asset('css/users.show.css')}}" rel="stylesheet">
+    <link href="{{asset('css/users.show.css')}}" rel="stylesheet">
 
     <title>Document</title>
 </head>
@@ -30,7 +30,11 @@
     <br><br>
     <span class="h2" id="h"> ID : </span> <span class="h3" id="hh"> {{$users ->academic_number}}</span>
     <br><br>
-    <span class="h2" id="h"> Role : </span> <span class="h3" id="hh">{{$users ->role}}</span>
+    <span class="h2" id="h"> Role : </span> <span class="h3" id="hh"> @if($users->role=="2")
+            {{"Doctors"}}
+        @else
+            {{"Students"}}
+        @endif</span>
     <br><br>
     <a href="{{route('users.index')}}">
         <button class="btn btn-success" type="submit"> Back</button>
