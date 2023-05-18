@@ -77,10 +77,10 @@ class GenerateController extends Controller
     {
         $enrollment = Enrollment::where('id', '=', request()->enrollment_id)->first();
         $enrollment->delete();
-        return Redirect::route('generate.show',request()->course_id)->with('status', "Deleted successfully .");
+        return Redirect::route('generate.show', request()->course_id)->with('status', "Deleted successfully .");
     }
 
-   //get all students' names and academic numbers write them to a csv then return a response that would download them
+    //get all students' names and academic numbers write them to a csv then return a response that would download them
     public function download($course_id)
     {
         $students = Enrollment::where('course_id', $course_id)->with('student', 'course')->get();
