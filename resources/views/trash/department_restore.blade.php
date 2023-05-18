@@ -1,4 +1,8 @@
-<!doctype html>
+<?php
+
+use App\Models\Department
+?>
+    <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,13 +12,12 @@
     <title>Restore</title>
 </head>
 <body>
-{{
-    $departments = Department::onlyTrashed()->get()
-}}
-@foreach($department as $departments)
+
+@foreach($departments as $department)
     <h1>{{$department->code}}</h1>
     <h1>{{$department->name}}</h1>
-    <button class="btn"><a href="{{ route('department.restore', $department->$id) }}">Restore Department</a></button>
+    <button class="btn"><a href="{{ route('department.restore', [ 'id'=> $department->id]) }}">Restore Department</a>
+    </button>
 @endforeach
 </body>
 </html>
