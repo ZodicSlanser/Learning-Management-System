@@ -81,16 +81,9 @@
                 <label>Professor OF Subjects</label>
 
                 <select class="form-control" name="professor_id">
-                    <option value="@if($courses ->professor_id=="null")
-                        {{'0'}}
-                        @else
-                        {{$courses ->professor->id}}">
-                        @endif
-                        @if($courses ->professor->name=="null")
-                        {{"not prerequisite"}}
-                        @else
-                        {{$courses ->professor->name}}
-                        @endif</option>
+                    <option value="{{$courses->professor->id}} ">
+                        {{$courses->professor->name}}
+                    </option>
                     @foreach ($doctors as $doctor)
                         <option value=" {{$doctor ->id}} ">{{$doctor ->name}}</option>
                     @endforeach
