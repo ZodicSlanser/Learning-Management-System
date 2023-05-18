@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
@@ -25,6 +24,12 @@ class UsersController extends Controller
 
         return view('users.index', ['users' => $user]);
 
+    }
+
+
+    public function restore_index()
+    {
+        return view('trash.user_restore', ['users' => User::onlyTrashed()->get()]);
     }
 
     /**
@@ -151,5 +156,12 @@ class UsersController extends Controller
     {
         $user->delete();
         return Redirect::route('users.index', $user->id)->with('status', 'Deleted Successfully');
+    }
+
+    public function restore()
+    {
+        $id = Request()->id;
+        User::onlyTrashed()->where('id', $id)->first()->restore();
+        return Redirect::route('user.restore.index')->with('status', 'Restored Successfully.');
     }
 }

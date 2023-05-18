@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -20,11 +21,16 @@ class CoursesController extends Controller
         //
         $courses = Course::paginate(10);
         foreach ($courses as $course) {
-            if(!$course->prerequisite_id){
+            if (!$course->prerequisite_id) {
                 $course->prerequisite_id = 'none';
             }
         }
         return view('courses.index', ['courses' => $courses]);
+    }
+
+    public function restore_index()
+    {
+        return view('trash.course_restore', ['courses' => Course::onlyTrashed()->get()]);
     }
 
     /**
@@ -41,7 +47,6 @@ class CoursesController extends Controller
             'professor_id' => 'required',
 
         ]);
-
         Storage::disk('local')->makeDirectory($formFields['name'], 'Contents');
 
         Course::create($formFields);
@@ -82,7 +87,8 @@ class CoursesController extends Controller
     public function edit(Course $course)
     {
         //
-        $doctors = DB::table('users')->where('role', '=', Role::PROFESSOR)->get();
+        $doctors = User::where('role', '=', Role::PROFESSOR)->get();
+
         $departments = Department::get();
 
         return view('courses.edit', ['departments' => $departments, 'courses' => $course, 'doctors' => $doctors]);
@@ -96,7 +102,7 @@ class CoursesController extends Controller
         $formFields = $request->validate([
             'name' => 'required',
             'code' => 'required',
-            'prerequisite_id' => 'required',
+            'prerequisite_id',
             'department_id' => 'required',
             'professor_id' => 'required',
         ]);
@@ -113,11 +119,20 @@ class CoursesController extends Controller
     {
         //get all prerequisites of the course
         $prerequisites = Course::where('prerequisite_id', '=', $course->id)->get();
+
         foreach ($prerequisites as $prerequisite) {
             $prerequisite->prerequisite_id = null;
             $prerequisite->save();
         }
+
         $course->delete();
         return Redirect::route('courses.index')->with('status', 'Deleted Successfully, all dependant courses are now prerequisite-less');
+    }
+
+    public function restore()
+    {
+        $id = Request()->id;
+        Course::onlyTrashed()->where('id', $id)->first()->restore();
+        return Redirect::route('course.restore.index')->with('status', 'Restored Successfully.');
     }
 }
