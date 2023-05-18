@@ -40,6 +40,7 @@
                 <a href="{{route('departments.edit',$department->id)}}" class="btn btn-info"
                    style="margin-right: 150px;margin-top: 10px;"> EDIT </a>
 
+
                 <form action="{{route('departments.destroy',$department->id)}}" method="POST">
                     @csrf
                     @method('DELETE')

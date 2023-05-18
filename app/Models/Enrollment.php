@@ -22,6 +22,11 @@ class Enrollment extends Model
         return EnrollmentFactory::new();
     }
 
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'student_id');
+    }
+
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
@@ -106,14 +111,9 @@ class Enrollment extends Model
         return $grades->average();
     }
 
-    public function student()
-    {
-        return $this->belongsTo(User::class, 'student_id');
-    }
-
     public function is_enrolled2(User $student, Course $course): bool
     {
-        
+
         $enrollment = $this->where('student_id', $student->id)
         ->where('course_id', $course->id)
         ->first();
@@ -135,14 +135,16 @@ class Enrollment extends Model
 
         //if this course has no prerequisites then enroll them
         if (!$course->prerequisite) {
-            
+
             return true;
         }
         //if this course has prerequisites and student is not enrolled in the course then check if he has passed all the prerequisites
         if ($course->prerequisite && $this->hasPassedPrerequisite($student, $course->prerequisite)) {
-            
+
             return true;
         }
         return false;
     }
+
+
 }
