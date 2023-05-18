@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use App\Models\User;
 use App\Models\Course;
 use App\Models\Department;
-use App\Models\Enrollment;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class CoursesController extends Controller
 {
@@ -22,11 +21,16 @@ class CoursesController extends Controller
         //
         $courses = Course::paginate(10);
         foreach ($courses as $course) {
-            if(!$course->prerequisite_id){
+            if (!$course->prerequisite_id) {
                 $course->prerequisite_id = 'none';
             }
         }
         return view('courses.index', ['courses' => $courses]);
+    }
+
+    public function restore_index()
+    {
+        return view('trash.course_restore', ['courses' => Course::onlyTrashed()->get()]);
     }
 
     /**
@@ -38,7 +42,7 @@ class CoursesController extends Controller
 
             'name' => 'required',
             'code' => 'required',
-            'prerequisite_id'=> 'required' ,
+            'prerequisite_id' => 'required',
             'department_id' => 'required',
             'professor_id' => 'required',
 
@@ -84,7 +88,7 @@ class CoursesController extends Controller
     {
         //
         $doctors = User::where('role', '=', Role::PROFESSOR)->get();
-        
+
         $departments = Department::get();
 
         return view('courses.edit', ['departments' => $departments, 'courses' => $course, 'doctors' => $doctors]);
@@ -120,23 +124,15 @@ class CoursesController extends Controller
             $prerequisite->prerequisite_id = null;
             $prerequisite->save();
         }
-        
-        $users = Course::where('id', '=', $course->id)->get();
-       
-        foreach ($users as $user) {
-            $user->professor_id= null;
-            $user->save();
-        }
-        
-        $enrollements = Enrollment::where('course_id',$course->id)->get();
 
-   /// مش راضي يخليها  (null) هي دي المشكلة لو اتحلت خلاتص  ////   
-
-        foreach ($enrollements as $enrollement) {
-            $enrollement->course_id= null;
-            $enrollement->save();
-        }
         $course->delete();
         return Redirect::route('courses.index')->with('status', 'Deleted Successfully, all dependant courses are now prerequisite-less');
+    }
+
+    public function restore()
+    {
+        $id = Request()->id;
+        Course::onlyTrashed()->where('id', $id)->first()->restore();
+        return Redirect::route('course.restore.index')->with('status', 'Restored Successfully.');
     }
 }
