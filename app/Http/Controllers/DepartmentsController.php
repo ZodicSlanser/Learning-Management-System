@@ -14,10 +14,13 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
-        //
-        $departments = Department::paginate(9);
 
-        return view('departments.index', ['departments' => $departments]);
+        return view('departments.index', ['departments' => Department::paginate(9)]);
+    }
+
+    public function restore_index()
+    {
+        return view('trash.department_restore', ['departments' => Department::onlyTrashed()->get()]);
     }
 
     /**
@@ -91,23 +94,19 @@ class DepartmentsController extends Controller
      */
     public function destroy(Department $department)
     {
-        $courses = Course::where('department_id', '=', $department->id)->first();
-        if ($courses) {
-            foreach ($courses as $course) {
-                $course->department_id = $_POST['department_id'];
-            }
-            $department->delete();
+        $dep_courses = Course::where('department_id', $department->id)->get();
+        $department->delete();
+        if ($dep_courses) {
             return Redirect::route('departments.index')->with('status', 'Deleted Successfully, but there were courses in this department.');
         } else {
-            $department->delete();
             return Redirect::route('departments.index')->with('status', 'Deleted Successfully.');
         }
     }
 
-    public function resotore($id)
+    public function restore()
     {
-        $department = Department::onlyTrashed()->where('id', $id)->first();
-        $department->restore();
-        return Redirect::route('departments.index')->with('status', 'Restored Successfully.');
+        $id = Request()->id;
+        Department::onlyTrashed()->where('id', $id)->first()->restore();
+        return Redirect::route('departments.restore.index')->with('status', 'Restored Successfully.');
     }
 }
