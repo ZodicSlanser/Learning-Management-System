@@ -10,12 +10,12 @@
 <body>
 
 <div class="main-content">
-        <div class="title">
-            @foreach($courses as $course)
-               {{$course->name}}
-            @endforeach
+    <div class="title">
+        @foreach($courses as $course)
+            {{$course->name}}
+        @endforeach
 
-        </div>
+    </div>
 
     <div class="menu-bar">
 
@@ -61,7 +61,7 @@
     <div class="cells">
         @include('partials._cells')
 
-    @foreach ($enrollments as $enrollment)
+        @foreach ($enrollments as $enrollment)
 
             <input class="cells__input" value="{{$enrollment->student->academic_number}}"/>
             <input class="cells__input" value="{{$enrollment->student->name}}"/>
@@ -80,7 +80,7 @@
             <input class="cells__input"/>
             <input class="cells__input"/>
         @endforeach
-            @include('partials._input')
+        @include('partials._input')
     </div>
 
 </div>

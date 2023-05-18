@@ -11,22 +11,22 @@ class CourseFactory extends Factory
 {
     protected $model = Course::class;
 
-        public function definition()
-        {
-            $name = $this->faker->sentence(3);
-            $code = $this->faker->unique()->regexify('[A-Z]{3}[0-9]{3}');
+    public function definition()
+    {
+        $name = $this->faker->sentence(3);
+        $code = $this->faker->unique()->regexify('[A-Z]{3}[0-9]{3}');
 
-            $departmentIds = Department::pluck('id')->toArray();
-            $professorIds = User::where('role', '2')->pluck('id')->toArray();
+        $departmentIds = Department::pluck('id')->toArray();
+        $professorIds = User::where('role', '2')->pluck('id')->toArray();
 
-            return [
-                'name' => $name,
-                'code' => $code,
-                'department_id' => $this->faker->randomElement($departmentIds),
-                'professor_id' => $this->faker->randomElement($professorIds),
-                'prerequisite_id' => null,
-            ];
-        }
+        return [
+            'name' => $name,
+            'code' => $code,
+            'department_id' => $this->faker->randomElement($departmentIds),
+            'professor_id' => $this->faker->randomElement($professorIds),
+            'prerequisite_id' => null,
+        ];
+    }
 
 
     public
