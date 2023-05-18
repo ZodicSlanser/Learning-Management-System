@@ -21,6 +21,13 @@ class Enrollment extends Model
         return EnrollmentFactory::new();
     }
 
+    public function delete()
+    {
+        $this->student()->dissociate();
+        $this->course()->dissociate();
+        parent::delete();
+    }
+
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id');
@@ -29,11 +36,6 @@ class Enrollment extends Model
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
-    }
-    public function delete(){
-        $this->student()->dissociate();
-        $this->course()->dissociate();
-        parent::delete();
     }
 
 }
