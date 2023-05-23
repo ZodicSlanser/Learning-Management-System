@@ -83,15 +83,22 @@ class ProfessorsController extends Controller
     //this function update the grade of student *ezzat*
     public function update(Request $request, $id, $course)
     {
+        
         $validatedData = $request->validate([
-            'stugrade' => 'required|numeric|between:0,100',
+            'stugrade' => 'required|numeric',
         ]);
 
-        DB::table('enrollments')
+        if($validatedData['stugrade']>100 || $validatedData['stugrade']<0)
+        {
+            return back()->with('error','the gradr should be between 0 and 100 :('); 
+        }
+        else
+        {
+            DB::table('enrollments')
             ->where('student_id', $id)
             ->where('course_id', $course)
             ->update(['grade' => $validatedData['stugrade']]);
-
+        }
         return redirect('/professorCourses');
     }
 
