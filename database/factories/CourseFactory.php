@@ -13,7 +13,7 @@ class CourseFactory extends Factory
 
     public function definition()
     {
-        $name = $this->faker->sentence(3);
+        $name = str_replace(".", '', $this->faker->sentence(3));
         $code = $this->faker->unique()->regexify('[A-Z]{3}[0-9]{3}');
 
         $departmentIds = Department::pluck('id')->toArray();

@@ -15,16 +15,23 @@ use Illuminate\Support\Facades\Redirect;
 class StudentController extends Controller
 {
     public function index($id){
-        $subject = Course::find($id);
+        $course = Course::find($id);
+        $path_subject = "public/material/" . $course->name;
+        $files =Storage::files($path_subject);                    //retrive all files in directory
 
-        $folderName = str_replace(".", '', $subject->name);
+
+        $fileList = [];                                          //new array to contain name and url of each item in directory
+        foreach($files as $file) {
+            $items_exlast = explode("/", $file);                        //array  -->url to pieces
+            $lastItem = $items_exlast[count($items_exlast) - 1];        // last item in array 
+
+            array_push($fileList, ['name' => $lastItem, 'url' => Storage::url($file)]);
+        }
         
-        // Storage::disk('public')->put('a.tt' ,'content');
-        Storage::disk('public')->makeDirectory($folderName);
-        
+
+        return view('material_file' , ['files' => $fileList]);
 
 
-        return "the text upload ";
     }
 
     public function show_students(){

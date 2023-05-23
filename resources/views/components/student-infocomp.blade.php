@@ -6,9 +6,14 @@
               
                <br>
 
-              <a href="/test{{$u->course->id}}" >  course : {{$u->course->name}}
-              </a>
-
+              <a href="/test{{$u->course->id}}" >  course : {{$u->course->name}}</a>
+              <br>
+            @if($u->grade == null)
+                Grade : 0
+            @else
+              Grade : {{$u->grade}}
+              
+            @endif
              </div>
 
              <br>
