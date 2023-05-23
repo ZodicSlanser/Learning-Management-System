@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\Label;
 
 class UsersController extends Controller
 {
@@ -183,24 +184,25 @@ class UsersController extends Controller
             'email' => $request->get('email'),
             'password' => $request->get('password')
         );
-
         if (!(Auth::attempt($user_data))) {
             return back()->with('error', 'Wrong Login Details');
         }
-        return redirect('home');
-    }
-
-    function successlogin()
-    {
         if (Auth::user()->role == Role::ADMIN) {
-            return view('admin_homepage');
+            return redirect('/departments');
         }
         if (Auth::user()->role == Role::PROFESSOR) {
-            return view('professor_homepage');
+            return redirect('/professorCourses');
+
         }
         if (Auth::user()->role == Role::STUDENT) {
             return view('student_homepage');
         }
+        return redirect('/login');
+    }
+
+    function successlogin()
+    {
+
     }
 
     function logout()

@@ -20,11 +20,34 @@ class DatabaseSeeder extends Seeder
         // Create 5 departments
         $departments = Department::factory()->count(5)->create();
 
+      $defAdmin =  User::factory()->create([
+            'name' => 'Admin',
+            'username' => 'admin',
+            'email' => 'admin@admin.example',
+            'password' => Hash::make('admin'),
+            'role' => '1',
+        ]);
+      $defProfessor = User::factory()->create([
+            'name' => 'Professor',
+            'username' => 'prof',
+            'email' => 'prof@prof.example',
+            'department_id' => $departments->random()->id,
+            'password' => Hash::make('prof'),
+            'role' => '2',
+        ]);
+      $defStudent =  User::factory()->create([
+            'name' => 'Student',
+            'username' => 'stud',
+            'email' => 'stud@stud.example',
+            'password' => Hash::make('stud'),
+            'role' => '3',
+        ]);
+
         $admins = User::factory()
             ->admin()
             ->count(5)
             ->create();
-
+        $admins->push($defAdmin);
         $professors = User::factory()
             ->professor()
             ->count(10)
@@ -32,19 +55,13 @@ class DatabaseSeeder extends Seeder
                 return ['department_id' => $departments->random()->id];
             })
             ->create();
-
+        $professors->push($defProfessor);
         $students = User::factory()
             ->student()
             ->count(100)
             ->create();
+        $students->push($defStudent);
 
-        User::factory()->create([
-            'name' => 'Test',
-            'username' => 'test',
-            'email' => 'test@test.example',
-            'password' => Hash::make('test'),
-            'role' => '1',
-        ]);
         $courses = Course::factory()
             ->count(100)
             ->state(function (array $attributes) use ($departments, $professors) {

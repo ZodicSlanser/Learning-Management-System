@@ -24,15 +24,11 @@ Route::get('/', function () {
 
 Route::get('/login', [UsersController::class, 'loginIndex']);
 Route::post('/login/checklogin', [UsersController::class, 'checklogin']);
-Route::get('/home', [UsersController::class, 'successlogin']);
 Route::get('/logout', [UsersController::class, 'logout']);
-
-Route::get('/professorCourses', [ProfessorsController::class, 'getCoursesByProfessorId']);
 
 Route::get('/students' , function (){
 
     $students = User::where('role', '=' , Role::STUDENT)->get();
-
    return view('student_list' , ['students'=> $students]);  //pass anything inside ass_array to view as variable
 });
 
@@ -65,6 +61,16 @@ Route::get('/students/{id}', function ($id) {
 
 Route::middleware(CheckProfessorRole::class)->group(function () {
     //professor routes
+    // *ezzat routes*
+    Route::get('/professorCourses', [ProfessorsController::class, 'getCoursesByProfessorId']);
+    Route::post('/upload{id}',[ProfessorsController::class,'uploadFiles'])->name('upload');
+    Route::get('/professorCourses{id}',[ProfessorsController::class,'showMatrial'])->name('pr.co');
+    Route::get('/showStudents{id}',[ProfessorsController::class,'showStudents'])->name('viewStudent');
+    Route::get('/student/edit{id}/course{course}',[ProfessorsController::class,'edit'])->name('student.edit');
+    Route::post('/student/edit{id}/course{course}',[ProfessorsController::class,'update'])->name('student.update');
+    Route::get('/professorCourses{id}/delete{filename}', [ProfessorsController::class,'deleteFile'])->name('delete.file');
+    // *ezzat routes*
+
 });
 
 Route::middleware(CheckAdminRole::class)->group(function () {
