@@ -111,38 +111,84 @@ class Enrollment extends Model
         return $this->belongsTo(User::class, 'student_id');
     }
 
-    public function is_enrolled2(User $student, Course $course): bool
-    {
-        
-        $enrollment = $this->where('student_id', $student->id)
-        ->where('course_id', $course->id)
-        ->first();
+    
 
-        if ($enrollment) {
+
+
+//------------------------------------------------------------------------------------------------------------------
+
+public function if_stu_pass(Enrollment $enrollment ): bool
+{
+   return $enrollment->grade >= Grades::GRADE_D;
+}
+
+
+public function is_enrolled_before(User $student, Course $course): bool
+{
+    //array contain value of one row of enrollment  
+    $enrollment = $this->where('student_id', $student->id)
+    ->where('course_id', $course->id)
+    ->first();
+
+    //return true if there row contain two value together in table enrollment
+    if ($enrollment) {
+        return true;
+    } else {
+        return false;
+    }
+
+    // return $this->where('student_id', ) === $student->id && $this->course_id === $course->id && !$course->trashed();
+}
+
+
+public function if_stu_pass_inpreq(User $student, $prerequisite_id): bool
+    {
+        //array contain value of one row of enrollment -> stu_id , pre_req
+        $enrollment = $this->where('student_id', $student->id)
+            ->where('course_id', $prerequisite_id)
+            ->first();
+
+        if (!$enrollment) {
             return true;
-        } else {
+        }
+
+        //if ($enrollment && $this->if_stu_pass($enrollment)) return true --- else return false 
+
+        if (!$this->if_stu_pass($enrollment)) {
             return false;
         }
 
-        // return $this->where('student_id', ) === $student->id && $this->course_id === $course->id && !$course->trashed();
+        return true;
     }
 
 
-    public function can_enroll(User $student, Course $course): bool
+
+public function reg_new_enroll(User $student, Course $course): bool
     {
         //if student is enrolled in the course then return false
-        if ($this->is_enrolled2($student, $course)) return false;
+        if ($this->is_enrolled_before($student, $course)) return false;
 
         //if this course has no prerequisites then enroll them
-        if (!$course->prerequisite) {
-            
+        if (!$course->prerequisite_id) {
             return true;
         }
         //if this course has prerequisites and student is not enrolled in the course then check if he has passed all the prerequisites
-        if ($course->prerequisite && $this->hasPassedPrerequisite($student, $course->prerequisite)) {
+        if ($course->prerequisite_id && $this->if_stu_pass_inpreq($student, $course->prerequisite_id)) {
             
             return true;
         }
+
+
         return false;
     }
+
+
+
+
+
+
+
+
+
+
 }

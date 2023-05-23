@@ -43,7 +43,9 @@ class DatabaseSeeder extends Seeder
             'username' => 'test',
             'email' => 'test@test.example',
             'password' => Hash::make('test'),
-            'role' => '1',
+            'academic_number' =>50,
+            'department_id' => 5,
+            'role' => '3',
         ]);
         $courses = Course::factory()
             ->count(100)
@@ -54,6 +56,11 @@ class DatabaseSeeder extends Seeder
                 ];
             })->create();
 
+            Enrollment::factory()->create([
+                'student_id' => 116,
+                'course_id' => 27 ,
+                'grade' => 80,
+            ]);
         // Enroll students in random courses
         foreach ($students as $student) {
             $enrollments = Enrollment::factory()

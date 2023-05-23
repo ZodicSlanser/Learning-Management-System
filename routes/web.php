@@ -6,6 +6,7 @@ use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProfessorsController;
 
 
@@ -17,57 +18,19 @@ Route::get('/login', [UserController::class, 'index']);
 Route::post('/login/checklogin', [UserController::class, 'checklogin']);
 Route::get('/home', [UserController::class, 'successlogin']);
 Route::get('/logout', [UserController::class, 'logout']);
-
 Route::get('/professorCourses', [ProfessorsController::class, 'getCoursesByProfessorId']);
 
-Route::get('/students' , function (){
-  
-    $students = User::where('role', '=' , 3)->get();
-    
-   return view('student_list' , ['students'=> $students]);  //pass anything inside ass_array to view as variable
-});
 
-Route::get('/students/{id}', function ($id) {
-    $item = Enrollment::where('student_id'  , $id)->with('course')->get();
+Route::get('/allstudents' , [StudentController::class , 'show_students']);
+
+Route::get('/crs_student' , [StudentController::class , 'course_ofstudent'])->name('students.x');
+
+Route::get('/regcourse', [StudentController::class , 'regestration']);
+
+Route::post('/supcourse', [StudentController::class ,'reg_form']);
+
+Route::get('/test{id}', [StudentController::class, 'index']);
+
+
  
- 
-    return view('student_info', [ 'student' => $item ]);
- })->name('/students/{id}.x');
-
-
-
-
- Route::get('/regcourse/{id}', function ($id) {
-    $item = User::find($id);
-    $department = $item['department_id'];
-    $courses = Course::where( 'department_id', $department )->get();
-    return view('reg_course' , [ 'courses' => $courses ] ,[ 'item' => $item ] );
- });
-
-
-
- Route::post('/supcourse', function (Request $requset) {
-
-   $formfields = $requset->validate([
-    'course_id' => 'required',
-    'student_id' => 'required'
-   ]);
-
-  
-   $course = Course::find($formfields['course_id']);
-   $student = User::find($formfields['student_id']);
-
-   $x = new Enrollment();
-   $enroll = $x->can_enroll($student, $course);
-
-   if ($enroll) {
-      Enrollment::create($formfields);
-      return 'Added';
-   }  else{
-      
-   return 'Nooooo';
-   }
-
-   // return Redirect::route('/students');
- });
 

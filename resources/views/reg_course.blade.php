@@ -7,18 +7,18 @@
     <label>Course : </label>
 
     <select name="course_id">
-        @foreach ($courses as $Course)
         
-            <option value="{{$Course['id']}}">{{$Course['name']}}</option>
-            
-        @endforeach
-       
-       
+            @foreach ($courses as $Course)
+                    
+                <option value="{{$Course['id']}}">
+                    {{$Course['name']}}
+                </option> 
+
+
+            @endforeach
+
     </select>
    <br>
-
-   <label>Student_Id : </label>
-   <input type="text" value="{{$item['id']}}" name="student_id">
 
     <br>
     <button type="submit">Save</button>
@@ -26,3 +26,12 @@
 </form>
             
    @endsection
+
+   @section('namestudent')
+{{Auth::user()->name}}
+@endsection
+
+@section('numstudent')
+{{Auth::user()->academic_number}}
+@endsection
+

@@ -23,15 +23,9 @@
          <input type="text" placeholder="Search...">
          <span class="tooltip">Search</span>
       </li>
+      
       <li>
-        <a href="/departments">
-          <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="links_name">Departments</span>
-        </a>
-        <span class="tooltip">Departments</span>
-      </li>
-      <li>
-       <a href="#">
+       <a href="/regcourse">
          <i class='bx bx-user' ></i>
          <span class="links_name">Material Registration</span>
        </a>
@@ -39,7 +33,7 @@
      </li>
 
      <li>
-      <a href="#">
+      <a href="/crs_student">
         <i class='bx bx-folder' ></i>
         <span class="links_name">Material Content</span>
       </a>
@@ -68,16 +62,17 @@
        </a>
        <span class="tooltip">Setting</span>
      </li>
+     
      <li class="profile">
          <div class="profile-details">
           <img src="image/profile.jpg" alt="profileImg">
           <div class="name_job">
-             <div class="name">Prem Shahi</div>
-             <div class="job">Web designer</div>
+             <div class="name">@yield('namestudent')</div>
+             <div class="job">@yield('numstudent')</div>
            </div>
          </div>
         
-         <a href="file:///D:/idea%20not%20field/Project_SW2/login2.html"> <button name="logout"><i class='bx bx-log-out' id="log_out" ></i></button></a>
+         <a href="/logout"> <button name="logout"><i class='bx bx-log-out' id="log_out" ></i></button></a>
 
      </li>
     </ul>

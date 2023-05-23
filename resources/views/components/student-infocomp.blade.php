@@ -5,15 +5,16 @@
                ID_course : {{$u->course->id}}
               
                <br>
-                course : {{$u->course->name}}
-             
+
+              <a href="/test{{$u->course->id}}" >  course : {{$u->course->name}}
+              </a>
 
              </div>
 
              <br>
 @else
     <div>
-        <a href='/students/{{ $u->id }}'>
+        <a href='/allstudents'>
            {{ $u->id }} - {{ $u->name }}  
     </div>
 

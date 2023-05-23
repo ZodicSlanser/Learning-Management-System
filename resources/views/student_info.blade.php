@@ -7,8 +7,17 @@
 
    @endforeach
 
-   <button>
+   {{-- <button>
     <a href="/regcourse/{{$child['student_id']}}"  style="text-decoration: none">New Course</a>
-   </button>
+   </button> --}}
             
    @endsection
+
+   @section('namestudent')
+{{Auth::user()->name}}
+@endsection
+
+@section('numstudent')
+{{Auth::user()->academic_number}}
+@endsection
+
