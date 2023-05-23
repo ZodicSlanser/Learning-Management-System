@@ -39,12 +39,12 @@ class Enrollment extends Model
 
         //if this course has no prerequisites then enroll them
         if (!$course->prerequisite) {
-            $student->courses()->attach($course->id);
+            $student->courses()->save($course->id);
             return true;
         }
         //if this course has prerequisites and student is not enrolled in the course then check if he has passed all the prerequisites
         if ($course->prerequisite && $this->hasPassedPrerequisite($student, $course->prerequisite)) {
-            $student->courses()->attach($course->id);
+            $student->courses()->save($course->id);
             return true;
         }
         return false;
@@ -52,7 +52,7 @@ class Enrollment extends Model
 
     public function is_enrolled(User $student, Course $course): bool
     {
-        return $this->student_id === $student->id && $this->course_id === $course->id && !$course->trashed();
+        return $this->student_id === $student->id && $this->course_id === $course->id;
     }
 
     public function hasPassedPrerequisite(User $student, Course $prerequisite): bool
@@ -111,36 +111,17 @@ class Enrollment extends Model
         return $grades->average();
     }
 
-    public function is_enrolled2(User $student, Course $course): bool
-    {
-
-        $enrollment = $this->where('student_id', $student->id)
-        ->where('course_id', $course->id)
-        ->first();
-
-        if ($enrollment) {
-            return true;
-        } else {
-            return false;
-        }
-
-        // return $this->where('student_id', ) === $student->id && $this->course_id === $course->id && !$course->trashed();
-    }
-
-
     public function can_enroll(User $student, Course $course): bool
     {
         //if student is enrolled in the course then return false
-        if ($this->is_enrolled2($student, $course)) return false;
+        if ($this->is_enrolled($student, $course)) return false;
 
         //if this course has no prerequisites then enroll them
         if (!$course->prerequisite) {
-
             return true;
         }
         //if this course has prerequisites and student is not enrolled in the course then check if he has passed all the prerequisites
         if ($course->prerequisite && $this->hasPassedPrerequisite($student, $course->prerequisite)) {
-
             return true;
         }
         return false;
