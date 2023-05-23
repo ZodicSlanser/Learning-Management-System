@@ -8,12 +8,10 @@
 
     <select name="course_id">
         @foreach ($courses as $Course)
-        
             <option value="{{$Course['id']}}">{{$Course['name']}}</option>
-            
         @endforeach
-       
-       
+
+
     </select>
    <br>
 
@@ -24,5 +22,5 @@
     <button type="submit">Save</button>
 
 </form>
-            
+
    @endsection

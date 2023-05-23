@@ -1,12 +1,12 @@
 @if(isset($showindetails) && $showindetails==true)
-            <div> 
-               
-               
-               ID_course : {{$u->course->id}}
-              
+            <div>
+
+
+               Course ID : {{$u->course->id}}
+
                <br>
-                course : {{$u->course->name}}
-             
+                Course Name : {{$u->course->name}}
+
 
              </div>
 
@@ -14,7 +14,7 @@
 @else
     <div>
         <a href='/students/{{ $u->id }}'>
-           {{ $u->id }} - {{ $u->name }}  
+           {{ $u->id }} - {{ $u->name }}
     </div>
 
 
