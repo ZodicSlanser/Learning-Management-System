@@ -14,13 +14,7 @@
             /* harmony import */
             var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-            var sidebar = document.querySelector(".sidebar");
-            var closeBtn = document.querySelector("#btn");
-            var searchBtn = document.querySelector(".bx-search");
-            closeBtn.addEventListener("click", function () {
-                sidebar.classList.toggle("open");
-                menuBtnChange(); //calling the function(optional)
-            });
+
 
             searchBtn.addEventListener("click", function () {
                 // Sidebar open when you click on the search iocn
@@ -28,16 +22,9 @@
                 menuBtnChange(); //calling the function(optional)
             });
 
-// following are the code to change sidebar button(optional)
-            function menuBtnChange() {
-                if (sidebar.classList.contains("open")) {
-                    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
-                } else {
-                    closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
-                }
-            }
+          /***/
 
-            /***/
+
         }),
 
         /***/ "./resources/js/bootstrap.js":

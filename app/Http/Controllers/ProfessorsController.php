@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\User;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -80,6 +81,23 @@ class ProfessorsController extends Controller
             ->with("course", $course)
             ->with("files", $fileList);
     }
+
+
+    //this function return all students that in this course i clicked ezzat
+    public function showStudents($id)
+    {
+        $studentsEnreolment = Enrollment::where('course_id', $id)->get();
+        $size = 0;
+        foreach($studentsEnreolment as $item)
+        {
+            $studentid = $item->student_id;
+            $studentname[$size] = User::find($studentid);
+            $size++;
+        }
+        return view('professor.show_Students')->with("studentE",$studentsEnreolment)->with("studentU",$studentname);
+    }
+
+
 
 
     //this function return student i want edit on it *ezzat*
