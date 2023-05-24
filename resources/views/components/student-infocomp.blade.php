@@ -1,27 +1,26 @@
 @if(isset($showindetails) && $showindetails==true)
-            <div>
+    <div>
 
 
-               Course ID : {{$u->course->id}}
+        Course ID : {{$u->course->id}}
 
-               <br>
+        <br>
 
-              <a href="/test/{{$u->course->id}}" >  course : {{$u->course->name}}</a>
-              <br>
-            @if($u->grade == null)
-                Grade : 0
-            @else
-              Grade : {{$u->grade}}
+        <a href=" {{route("student.material",[ 'id' => $u->course->id]) }} "> course : {{$u->course->name}}</a>
+        <br>
+        @if($u->grade == null)
+            Grade : 0
+        @else
+            Grade : {{$u->grade}}
 
-            @endif
-             </div>
+        @endif
+    </div>
 
-             <br>
+    <br>
 @else
     <div>
         <a href='/allstudents'>
-           {{ $u->id }} - {{ $u->name }}
+            {{ $u->id }} - {{ $u->name }}
     </div>
-
 
 @endif
