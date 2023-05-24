@@ -6,11 +6,12 @@ use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
-use PhpParser\Node\Stmt\Label;
+use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\ValidationException;
 
 class UsersController extends Controller
 {
@@ -28,7 +29,6 @@ class UsersController extends Controller
         return view('users.index', ['users' => $user]);
 
     }
-
 
     public function restore_index()
     {
@@ -126,28 +126,19 @@ class UsersController extends Controller
         if (isset($_POST['edit'])) {
             $fields = $request->validate([
                 'name' => 'required',
-                'username' => 'required',
-                'email' => 'required',
+                'username' => 'required|unique:App\Models\User,username',
+                'email' => 'required|email|unique:App\Models\User,email',
                 'password' => 'required',
-                'academic_number',
-                'role' => 'required',
+                'academic_number', 'unique:App\Models\User,academic_number',
+                'role' => ['required ', new Enum(Role::class)],
                 'department_id' => 'required',
 
             ]);
 
-            $user->update([
-                'name' => $request->name,
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'academic_number' => $request->academic_number,
-                'role' => $request->role,
-                'department_id' => $request->department_id,
-                'remember_token' => Str::random(60),
+            $user->update([[Collection::unwrap($fields),
+                'remember_token' => Str::random(60)],
             ]);
-
             return Redirect::route('users.show', $user->id)->with('status', "Updated successfully");
-
         }
 
     }
@@ -173,6 +164,9 @@ class UsersController extends Controller
         return view('login');
     }
 
+    /**
+     * @throws ValidationException
+     */
     function checklogin(Request $request)
     {
         $this->validate($request, [
@@ -184,6 +178,7 @@ class UsersController extends Controller
             'email' => $request->get('email'),
             'password' => $request->get('password')
         );
+
         if (!(Auth::attempt($user_data))) {
             return back()->with('error', 'Wrong Login Details');
         }
@@ -200,10 +195,6 @@ class UsersController extends Controller
         return redirect('/login');
     }
 
-    function successlogin()
-    {
-
-    }
 
     function logout()
     {
