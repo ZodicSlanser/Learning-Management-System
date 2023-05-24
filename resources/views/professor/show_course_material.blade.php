@@ -25,7 +25,9 @@
     <div class="file-link">
         <i class="fa fa-file"></i>
         <a href="{{ $file['url'] }}" download>{{ $file['name'] }}</a>
-        <form action="{{ route('delete.file', ['id' => $course->id, 'filename' => $file['name'], 'extension' => $file['extension']]) }}" method="POST" style="display: inline-block;">
+        <form
+            action="{{ route('delete.file', ['id' => $course->id, 'filename' => $file['name'], 'extension' => $file['extension']]) }}"
+            method="POST" style="display: inline-block;">
             @csrf
             @method('DELETE')
             <button type="submit">Delete</button>

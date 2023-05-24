@@ -20,14 +20,14 @@ class DatabaseSeeder extends Seeder
         // Create 5 departments
         $departments = Department::factory()->count(5)->create();
 
-      $defAdmin =  User::factory()->create([
+        $defAdmin = User::factory()->create([
             'name' => 'Admin',
             'username' => 'admin',
             'email' => 'admin@admin.example',
             'password' => Hash::make('admin'),
             'role' => '1',
         ]);
-      $defProfessor = User::factory()->create([
+        $defProfessor = User::factory()->create([
             'name' => 'Professor',
             'username' => 'prof',
             'email' => 'prof@prof.example',
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('prof'),
             'role' => '2',
         ]);
-      $defStudent =  User::factory()->create([
+        $defStudent = User::factory()->create([
             'name' => 'Student',
             'username' => 'stud',
             'email' => 'stud@stud.example',
@@ -71,11 +71,11 @@ class DatabaseSeeder extends Seeder
                 ];
             })->create();
 
-            Enrollment::factory()->create([
-                'student_id' => 116,
-                'course_id' => 27 ,
-                'grade' => 80,
-            ]);
+        Enrollment::factory()->create([
+            'student_id' => 116,
+            'course_id' => 27,
+            'grade' => 80,
+        ]);
         // Enroll students in random courses
         foreach ($students as $student) {
             $enrollments = Enrollment::factory()

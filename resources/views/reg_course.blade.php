@@ -2,11 +2,11 @@
 
 @section('addition')
 
-<form action="/supcourse"  method="POST">
-@csrf
-    <label>Course : </label>
+    <form action="/supcourse" method="POST">
+        @csrf
+        <label>Course : </label>
 
-    <select name="course_id">
+        <select name="course_id">
 
             @foreach ($courses as $Course)
 
@@ -14,24 +14,23 @@
                     {{$Course->name}}
                 </option>
 
-
             @endforeach
 
-    </select>
-   <br>
+        </select>
+        <br>
 
-    <br>
-    <button type="submit">Save</button>
+        <br>
+        <button type="submit">Save</button>
 
-</form>
+    </form>
 
-   @endsection
+@endsection
 
-   @section('namestudent')
-{{Auth::user()->name}}
+@section('namestudent')
+    {{Auth::user()->name}}
 @endsection
 
 @section('numstudent')
-{{Auth::user()->academic_number}}
+    {{Auth::user()->academic_number}}
 @endsection
 

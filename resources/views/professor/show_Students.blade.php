@@ -7,17 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-        $size = 0;
-    ?>
-    @foreach ($studentE as $item)
-        {{$studentU[$size]->name}}
-        {{$item->grade}}
-        <th><a class="btn btn-info" href="{{route('student.edit' , ['id' => $item->student_id,'course' => $item->course_id])}}">Edit</a></th>
-        <br>
+<?php
+$size = 0;
+?>
+@foreach ($studentE as $item)
+    {{$studentU[$size]->name}}
+    {{$item->grade}}
+    <th><a class="btn btn-info"
+           href="{{route('student.edit' , ['id' => $item->student_id,'course' => $item->course_id])}}">Edit</a></th>
+    <br>
         <?php
-            $size++;
+        $size++;
         ?>
-    @endforeach
+@endforeach
 </body>
 </html>

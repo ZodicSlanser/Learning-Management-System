@@ -22,11 +22,6 @@ class Enrollment extends Model
         return EnrollmentFactory::new();
     }
 
-    public function student()
-    {
-        return $this->belongsTo(User::class, 'student_id');
-    }
-
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
@@ -109,6 +104,11 @@ class Enrollment extends Model
         }
 
         return $grades->average();
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'student_id');
     }
 
     public function can_enroll(User $student, Course $course): bool

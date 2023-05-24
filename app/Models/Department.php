@@ -47,5 +47,4 @@ class Department extends Model
     }
 
 
-
 }

@@ -11,6 +11,13 @@ class Course extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public static $rules = [
+        'name' => 'required|string|max:255',
+        'code' => 'required|string|max:255|unique:courses,code',
+        'department_id' => 'required|exists:departments,id',
+        'prerequisite_id' => 'nullable|exists:courses,id',
+        'professor_id' => 'nullable|exists:users,id',
+    ];
     protected $fillable = [
         'name',
         'code',
@@ -24,13 +31,10 @@ class Course extends Model
         'deleted_at',
     ];
 
-    public static $rules = [
-        'name' => 'required|string|max:255',
-        'code' => 'required|string|max:255|unique:courses,code',
-        'department_id' => 'required|exists:departments,id',
-        'prerequisite_id' => 'nullable|exists:courses,id',
-        'professor_id' => 'nullable|exists:users,id',
-    ];
+    public static function getCoursesByDepartmentId($departmentId)
+    {
+        return Course::where('department_id', $departmentId)->get();
+    }
 
     public function department()
     {
@@ -122,10 +126,6 @@ class Course extends Model
         $enrollment->grade = $new_grade;
         $enrollment->save();
         return true;
-    }
-    public static function getCoursesByDepartmentId($departmentId)
-    {
-        return Course::where('department_id', $departmentId)->get();
     }
 
     public function course()

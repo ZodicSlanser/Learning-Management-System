@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Course;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
@@ -21,7 +20,7 @@ class ProfessorsController extends Controller
 
         $courses = Course::where('professor_id', $professorId)->get();
 
-        return view("professor.professor_show_courses")->with("courses",$courses);
+        return view("professor.professor_show_courses")->with("courses", $courses);
 
     }
 
@@ -60,7 +59,6 @@ class ProfessorsController extends Controller
     }
 
 
-
     //this function find Course that i clicked on it *ezzat*
     public function showMaterial($id)
     {
@@ -84,16 +82,14 @@ class ProfessorsController extends Controller
     }
 
 
-
-
     //this function return student i want edit on it *ezzat*
-    public function edit($id,$course)
+    public function edit($id, $course)
     {
         $studegre = Enrollment::where('student_id', $id)
-                                ->where('course_id',$course)
-                                ->first();
+            ->where('course_id', $course)
+            ->first();
 
-        return view('professor.editStudent')->with("stuD",$studegre);
+        return view('professor.editStudent')->with("stuD", $studegre);
         //return dd($studegre);
     }
 
@@ -105,16 +101,13 @@ class ProfessorsController extends Controller
             'stugrade' => 'required|numeric',
         ]);
 
-        if($validatedData['stugrade']>100 || $validatedData['stugrade']<0)
-        {
-            return back()->with('error','the gradr should be between 0 and 100 :(');
-        }
-        else
-        {
+        if ($validatedData['stugrade'] > 100 || $validatedData['stugrade'] < 0) {
+            return back()->with('error', 'the grade should be between 0 and 100 :(');
+        } else {
             DB::table('enrollments')
-            ->where('student_id', $id)
-            ->where('course_id', $course)
-            ->update(['grade' => $validatedData['stugrade']]);
+                ->where('student_id', $id)
+                ->where('course_id', $course)
+                ->update(['grade' => $validatedData['stugrade']]);
         }
         return redirect('/professorCourses');
     }

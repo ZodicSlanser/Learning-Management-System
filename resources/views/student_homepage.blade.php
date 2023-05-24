@@ -15,15 +15,14 @@
     @else
         <script>window.location = "/home";</script>
     @endif
-   
 
 @endsection
 
 @section('namestudent')
-{{Auth::user()->name}}
+    {{Auth::user()->name}}
 @endsection
 
 @section('numstudent')
-{{Auth::user()->academic_number}}
+    {{Auth::user()->academic_number}}
 @endsection
 
