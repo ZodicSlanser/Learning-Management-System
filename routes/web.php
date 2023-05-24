@@ -1,74 +1,52 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use App\Http\Middleware\CheckAdminRole;
 use App\Http\Middleware\CheckProfessorRole;
-use App\Models\Role;
-use App\Models\User;
-use App\Models\Course;
-use App\Models\Enrollment;
-use Illuminate\Http\Request;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\GenerateController;
 use App\Http\Controllers\ProfessorsController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersController;
 
+use App\Http\Middleware\CheckStudentRole;
 use Illuminate\Support\Facades\Route;
 
 
 
 Route::get('/', function () {
-    return view('login');
+  return redirect('/logout');
 });
 
 Route::get('/login', [UsersController::class, 'loginIndex']);
 Route::post('/login/checklogin', [UsersController::class, 'checklogin']);
 Route::get('/logout', [UsersController::class, 'logout']);
 
-Route::get('/students' , function (){
 
-    $students = User::where('role', '=' , Role::STUDENT)->get();
-   return view('student_list' , ['students'=> $students]);  //pass anything inside ass_array to view as variable
+
+Route::middleware(CheckStudentRole::class)->group(function () {
+    Route::get('/allstudents' , [StudentController::class , 'show_students']);
+    Route::get('/crs_student' , [StudentController::class , 'course_ofstudent'])->name('students.x');
+    Route::get('/regcourse', [StudentController::class , 'registration']);
+    Route::post('/supcourse', [StudentController::class ,'reg_form']);
+    Route::get('/test/{id}', [StudentController::class, 'index']);
+    Route::get('/download-file/{path}/{filename}/{courseId}', [StudentController::class, 'download'])->name('student.download');
 });
 
-Route::get('/students/{id}', function ($id) {
-    $item = Enrollment::where('student_id'  , $id)->with('course')->get();
-    return view('student_info', [ 'student' => $item ]);
- })->name('/students/{id}.x');
 
- Route::get('/regcourse/{id}', function ($id) {
-    $item = User::find($id);
-    $department = $item['department_id'];
-    $courses = Course::where( 'department_id', $department )->get();
-    return view('reg_course' , [ 'courses' => $courses ] ,[ 'item' => $item ] );
- });
-
-
- Route::post('/supcourse', function (Request $requset) {
-
-     $formfields = $requset->validate([
-         'course_id' => 'required',
-         'student_id' => 'required'
-     ]);
-
-     $course = Course::find($formfields['course_id']);
-     $student = User::find($formfields['student_id']);
-     $enrollemt = new Enrollment();
-     return $enrollemt->enroll($student,$course);
-   // return Redirect::route('/students');
- });
 
 Route::middleware(CheckProfessorRole::class)->group(function () {
     //professor routes
     // *ezzat routes*
     Route::get('/professorCourses', [ProfessorsController::class, 'getCoursesByProfessorId']);
     Route::post('/upload{id}',[ProfessorsController::class,'uploadFiles'])->name('upload');
-    Route::get('/professorCourses{id}',[ProfessorsController::class,'showMatrial'])->name('pr.co');
+    Route::get('/professorCourses{id}',[ProfessorsController::class,'showMaterial'])->name('pr.co');
     Route::get('/showStudents{id}',[ProfessorsController::class,'showStudents'])->name('viewStudent');
     Route::get('/student/edit{id}/course{course}',[ProfessorsController::class,'edit'])->name('student.edit');
     Route::post('/student/edit{id}/course{course}',[ProfessorsController::class,'update'])->name('student.update');
     Route::get('/professorCourses{id}/delete{filename}', [ProfessorsController::class,'deleteFile'])->name('delete.file');
+    Route::delete('/delete-file/{id}/{filename}', [ProfessorsController::class, 'deleteFile'])->name('delete.file');
+
     // *ezzat routes*
 
 });
@@ -88,6 +66,7 @@ Route::middleware(CheckAdminRole::class)->group(function () {
     Route::resource('/users', UsersController::class);
     Route::resource('/generate', GenerateController::class);
 });
+
 
 
 

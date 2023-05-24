@@ -4,11 +4,10 @@
   <head>
     <meta charset="UTF-8">
     <title> Responsive Sidebar Menu  | STUDENT_PAGE </title>
-    <link rel="stylesheet" href="css/student.css">
+    <link rel="stylesheet" href="{{@asset("css/app.css")}}">
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     @vite(['resources/css/app.css', 'resources/js/app.js'])
    </head>
 <body>
   <div class="sidebar">
@@ -23,15 +22,9 @@
          <input type="text" placeholder="Search...">
          <span class="tooltip">Search</span>
       </li>
+
       <li>
-        <a href="/departments">
-          <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="links_name">Departments</span>
-        </a>
-        <span class="tooltip">Departments</span>
-      </li>
-      <li>
-       <a href="#">
+       <a href="/regcourse">
          <i class='bx bx-user' ></i>
          <span class="links_name">Material Registration</span>
        </a>
@@ -39,7 +32,7 @@
      </li>
 
      <li>
-      <a href="#">
+      <a href="/crs_student">
         <i class='bx bx-folder' ></i>
         <span class="links_name">Material Content</span>
       </a>
@@ -53,7 +46,7 @@
        </a>
        <span class="tooltip">Messages</span>
      </li>
-     
+
      <li>
        <a href="#">
          <i class='bx bx-heart' ></i>
@@ -68,16 +61,17 @@
        </a>
        <span class="tooltip">Setting</span>
      </li>
+
      <li class="profile">
          <div class="profile-details">
           <img src="image/profile.jpg" alt="profileImg">
           <div class="name_job">
-             <div class="name">Prem Shahi</div>
-             <div class="job">Web designer</div>
+             <div class="name">@yield('namestudent')</div>
+             <div class="job">@yield('numstudent')</div>
            </div>
          </div>
-        
-         <a href="file:///D:/idea%20not%20field/Project_SW2/login2.html"> <button name="logout"><i class='bx bx-log-out' id="log_out" ></i></button></a>
+
+         <a href="/logout"> <button name="logout"><i class='bx bx-log-out' id="log_out" ></i></button></a>
 
      </li>
     </ul>

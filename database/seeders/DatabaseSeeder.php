@@ -71,6 +71,11 @@ class DatabaseSeeder extends Seeder
                 ];
             })->create();
 
+            Enrollment::factory()->create([
+                'student_id' => 116,
+                'course_id' => 27 ,
+                'grade' => 80,
+            ]);
         // Enroll students in random courses
         foreach ($students as $student) {
             $enrollments = Enrollment::factory()
