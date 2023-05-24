@@ -18,7 +18,6 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        //
         $courses = Course::paginate(10);
         foreach ($courses as $course) {
             if (!$course->prerequisite_id) {
@@ -40,14 +39,14 @@ class CoursesController extends Controller
     {
         $formFields = $request->validate([
 
-            'name' => 'required',
-            'code' => 'required',
+            'name' => 'required|max:255',
+            'code' => 'required|unique:departments|max:255',
             'prerequisite_id' => 'required',
             'department_id' => 'required',
-            'professor_id' => 'required',
+            'professor_id' => 'required|nullable',
 
         ]);
-        Storage::disk('local')->makeDirectory($formFields['name'], 'Contents');
+        Storage::disk('local')->makeDirectory($formFields['name']);
 
         Course::create($formFields);
 
