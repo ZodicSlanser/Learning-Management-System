@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -50,7 +50,7 @@ class User extends Authenticatable
         if ($this->role === Role::PROFESSOR) {
             return $this->hasMany(Course::class, 'professor_id');
         } elseif ($this->role === Role::STUDENT) {
-            return $this->belongsToMany(Course::class, 'enrollments', 'user_id', 'course_id');
+            return $this->belongsToMany(Course::class, 'enrollments', 'student_id', 'course_id');
         }
         return null;
     }
@@ -67,15 +67,17 @@ class User extends Authenticatable
 
     public function has_enrolled_in(Course $course)
     {
-        return $this->courses_enrolled()->where('id', $course->id)->whereNull('deleted_at')->exists();
+        return $this->courses_enrolled()->where('id', $course->id)->exists();
     }
 
     public function courses_enrolled()
     {
-        if ($this->is_student())
-            return $this->belongsToMany(Course::class, 'enrollments', 'user_id', 'course_id');
-        return null;
+        if ($this->is_student()) {
+            return $this->belongsToMany(Course::class, 'enrollments', 'student_id', 'course_id');
+        }
+        return collect();
     }
+
 
     public function is_student()
     {
@@ -103,11 +105,11 @@ class User extends Authenticatable
     {
         return $this->department->id === $department->id;
     }
+
     public function departments()
     {
         return $this->hasOne(Department::class, 'id', 'department_id');
     }
-
 
 
 }
