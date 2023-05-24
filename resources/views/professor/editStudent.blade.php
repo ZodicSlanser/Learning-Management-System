@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link href="{{@asset("css/edit_student.css")}}" rel="stylesheet">
+    <title>edit</title>
 </head>
 <body>
-    <div class="container col-6">
-        <h1 class="text-info text-center">Edit Student</h1>
-        <div class="card">
-            <div class="card-body">
+   
+        <h1 style="color: aliceblue">Edit Student</h1>
+
+        <div class="container">
+            <div class="img">
+                <img id="photo" src="{{URL("img2/edit2.svg")}}">
+            </div>
+
                 <form action="{{route('student.update' , ['id' => $stuD->student_id ,'course' => $stuD->course_id])}}" method="POST">
                     @csrf
-                    <div class="form-group">
-                        <label>Grade</label>
-                        <input type="number" value="{{$stuD->grade}}" name="stugrade" class="form-control" placeholder="New grade">
-                    </div>
-                    <button class="btn btn-warning">Update Data</button>
+                        <label style="color: aliceblue ;font-size: 20px;" >Grade</label>
+                        <input class = "inp" type="number" value="{{$stuD->grade}}" name="stugrade" class="form-control" placeholder="New grade">
+                        <button class="btn">Update Data</button>
                 </form>
-            </div> 
         </div>       
-    </div>
+    
 </body>
 </html>

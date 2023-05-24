@@ -42,10 +42,12 @@ class ProfessorsController extends Controller
             $extension = $file->getClientOriginalExtension(); // Get the file extension
 
             $fileName = Str::slug(pathinfo($originalFileName, PATHINFO_FILENAME)) . '.' . $extension; // Generate the filename with slug and extension
-
+            
             $file->storeAs($path_subject, $fileName, 'public'); // Store the file in the specified directory with the generated filename
 
             $files = Storage::files($path_subject); // Retrieve all files in the directory
+
+            //dd($files);
 
             $fileList = [];
             foreach ($files as $file) {
@@ -53,6 +55,7 @@ class ProfessorsController extends Controller
                 $lastItem = $items_exlast[count($items_exlast) - 1];
                 array_push($fileList, ['name' => $lastItem, 'url' => Storage::url($file)]);
             }
+            //dd($fileList);
             return back()->with('success', 'File uploaded successfully')->with('files', $fileList);
         }
 
@@ -81,6 +84,21 @@ class ProfessorsController extends Controller
         return view("professor.show_course_material")
             ->with("course", $course)
             ->with("files", $fileList);
+    }
+
+
+    //this function return all students that in this course i clicked ezzat
+    public function showStudents($id)
+    {
+        $studentsEnreolment = Enrollment::where('course_id', $id)->get();
+        $size = 0;
+        foreach($studentsEnreolment as $item)
+        {
+            $studentid = $item->student_id;
+            $studentname[$size] = User::find($studentid);
+            $size++;
+        }
+        return view('professor.show_Students')->with("studentE",$studentsEnreolment)->with("studentU",$studentname);
     }
 
 
