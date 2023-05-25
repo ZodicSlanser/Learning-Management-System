@@ -30,7 +30,7 @@
 
 ## About The Project
 
-![Index Page Image](PLACEHOLDER)
+![Index Page Image](https://i.imgur.com/2mg13IV.png)
 
 A Simple LMS built as a mini-project for SWE-2 (CS352) under the supervision of Eng. Ahmed EL-Batanouni to apply
 concepts of Backend development and Containerization
