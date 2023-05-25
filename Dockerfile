@@ -35,7 +35,7 @@ RUN php artisan key:generate
 RUN npm install
 
 # Build webpack assets
-RUN npx mix watch
+#RUN npx mix watch
 
 # Expose port 8000 (assuming Laravel's default port)
 EXPOSE 8000
