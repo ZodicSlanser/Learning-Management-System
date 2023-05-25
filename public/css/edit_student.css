@@ -8,6 +8,7 @@ body{
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
     background: linear-gradient(rgba(0,0,0,0.8),#009799);
+    margin-left: 118px;
 }
 
 .container{
@@ -23,7 +24,7 @@ body{
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-   
+
 }
 
 
@@ -62,5 +63,5 @@ form{
 
 .inp{
     border-radius: 32px;
-    
+
 }

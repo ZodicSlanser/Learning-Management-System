@@ -1,14 +1,16 @@
 
 *{
-	padding: 20px;
-	margin: 0;
-	box-sizing: border-box;
+    padding: 20px;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body{
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
     background: linear-gradient(rgba(0,0,0,0.8),#009799);
+    margin-left: 202px;
+    margin-top: 200px;
 }
 
 .edit{
@@ -24,13 +26,13 @@ body{
 }
 a:hover {
     background-image: linear-gradient(to right, #85AFA9, #85AFA9, #85AFA9);
-  }
-  .paragraph{
+}
+.paragraph{
     color: aliceblue;
     font-size: 22px;
     margin-bottom: 10px;
-  }
-  
+}
+
 .container{
     width: 100vw;
     height: 100vh;
@@ -41,10 +43,10 @@ a:hover {
 }
 
 .img{
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-   
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
 }
 
 
