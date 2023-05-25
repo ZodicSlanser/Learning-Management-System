@@ -130,8 +130,34 @@ go to the following route
 
 ### Running via container
 
-[[to be added later]]
+pull the image 
 
+```
+docker pull zodicslanser/lms
+``` 
+
+ run the container
+
+ ```
+ docker run --name lms -p 8000:8000 -d zodicslanser/lms
+ ```
+ 
+ connect to Container Terminal
+ 
+ ```
+ docker exec -it lms /bin/sh
+ ```
+ 
+ make the migrations to update the database
+
+```bash
+    php artisan migrate
+```
+
+ go to the following page
+ ```
+ <container-ip>:8000
+ ```
 ## Contributing
 
 Any contributions you make are **greatly appreciated**.
@@ -153,8 +179,8 @@ Any contributions you make are **greatly appreciated**.
 
 ## Authors
 
-* **Saif Ad-Din Samir** - *Computer Science Student* - [ZodicSlanser](https://github.com/ZodicSlanser/) - *PLACEHOLDER*
-* **Said Sharaf** - *Computer Science Student* - [Said Sharaf](https://github.com/Saidsharaf) - *PLACEHOLDER*
-* **Salma Hamdy** - *Computer Science Student* - [Salma Hamdy](https://github.com/salmaserag) - *PLACEHOLDER*
-* **Ziad Ezzat** - *Computer Science Student* - [Ziad Ezzat](https://github.com/ziad-ezzat) - *PLACEHOLDER*
-* **Ziad Shalaby** - *Computer Science Student* - [Ziad Shalaby](https://github.com/ZeadShalaby) - *PLACEHOLDER*
+* **Saif Ad-Din Samir** - *Computer Science Student* - [ZodicSlanser](https://github.com/ZodicSlanser/) 
+* **Said Sharaf** - *Computer Science Student* - [Said Sharaf](https://github.com/Saidsharaf) 
+* **Salma Hamdy** - *Computer Science Student* - [Salma Hamdy](https://github.com/salmaserag)
+* **Ziad Ezzat** - *Computer Science Student* - [Ziad Ezzat](https://github.com/ziad-ezzat)
+* **Ziad Shalaby** - *Computer Science Student* - [Ziad Shalaby](https://github.com/ZeadShalaby)
