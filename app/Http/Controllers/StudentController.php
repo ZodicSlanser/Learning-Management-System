@@ -63,9 +63,9 @@ class StudentController extends Controller
 
     public function registration()
     {
-        $user = Auth::user();
-        $unenrolled_courses = Enrollment::where('student_id', "!=", $user->id)->get();
-        return view('reg_course', ['courses' => $unenrolled_courses, 'item' => $user,]);
+         $user = Auth::user();
+         $eligableCourese = User::get_eligable_courses($user->id);
+        return view('reg_course', ['courses' => $eligableCourese, 'item' => $user,]);
     }
 
     public function reg_form(Request $requset)
@@ -80,10 +80,9 @@ class StudentController extends Controller
         $x = new Enrollment();
         $enroll = $x->enroll($student, $course);
         if ($enroll) {
-            Enrollment::create($formfields);
             return Redirect::route('students.x');
         }
-        return \redirect()->back()->with('status', 'You are already enrolled in this course');
+        return \redirect()->back()->with('status', 'Cannot enroll in course');
 
 
     }

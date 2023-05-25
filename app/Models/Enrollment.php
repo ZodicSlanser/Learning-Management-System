@@ -34,12 +34,12 @@ class Enrollment extends Model
 
         //if this course has no prerequisites then enroll them
         if (!$course->prerequisite) {
-            $student->courses()->save($course->id);
+            $student->courses()->save($course);
             return true;
         }
         //if this course has prerequisites and student is not enrolled in the course then check if he has passed all the prerequisites
         if ($course->prerequisite && $this->hasPassedPrerequisite($student, $course->prerequisite)) {
-            $student->courses()->save($course->id);
+            $student->courses()->save($course);
             return true;
         }
         return false;

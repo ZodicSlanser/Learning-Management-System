@@ -37,6 +37,7 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
+
         $formFields = $request->validate([
 
             'name' => 'required|max:255',
@@ -47,6 +48,7 @@ class CoursesController extends Controller
 
         ]);
         Storage::disk('local')->makeDirectory($formFields['name']);
+
 
         Course::create($formFields);
 

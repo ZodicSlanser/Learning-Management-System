@@ -13,19 +13,12 @@
 		<div class="img">
 			<img id="photo" src="{{URL("img2/uploading1.svg")}}">
 		</div>
-		
+
         <form class="form1" method="POST" action="{{ route('upload',$course->id) }}" enctype="multipart/form-data">
             @csrf
            <input  type="file" name="file" id="file">
             <button class="btn" type="submit">Upload</button>
         </form>
-       
-    @if (session('success'))
-        <div class="alert">
-            {{ session('success') }}
-        </div>
-    @endif
-    
     @foreach ($files as $file)
         <div class="file-link">
             <i class="fa fa-file"></i>
@@ -37,52 +30,6 @@
             </form>
         </div>
     @endforeach
-    
-    @if (empty($files))
-        Folder not found.
-    @endif
     </div>
-
-
-
-
-
-
-
-
-
-
-
-    {{-- <form method="POST" action="{{ route('upload',$course->id) }}" enctype="multipart/form-data">
-        @csrf
-        <input type="file" name="file">
-        <button type="submit">Upload</button>
-    </form> --}}
-
-    {{-- if u want do alert --}}
-    {{-- @if (session('success'))
-    <div class="alert">
-        {{ session('success') }}
-    </div>
-@endif
-
-@foreach ($files as $file)
-    <div class="file-link">
-        <i class="fa fa-file"></i>
-        <a href="{{ $file['url'] }}" download>{{ $file['name'] }}</a>
-        <form
-            action="{{ route('delete.file', ['id' => $course->id, 'filename' => $file['name'], 'extension' => $file['extension']]) }}"
-            method="POST" style="display: inline-block;">
-            @csrf
-            @method('DELETE')
-            <button type="submit">Delete</button>
-        </form>
-    </div>
-@endforeach
-
-@if (empty($files))
-    Folder not found.
-@endif --}}
-
 </body>
 </html>

@@ -70,6 +70,13 @@ class User extends Authenticatable
         return $this->courses_enrolled()->where('id', $course->id)->exists();
     }
 
+    public static function get_eligable_courses($studentId){
+        $student = User::find($studentId);
+            $enrolledCourses = $student->belongsToMany(Course::class, 'enrollments', 'student_id', 'course_id')->pluck('id');
+            $prerequisiteCourses = Course::whereIn('prerequisite_id', $enrolledCourses)->pluck('id');
+            return Course::whereNotIn('id', $enrolledCourses)->whereIn('id', $prerequisiteCourses)->get();
+    }
+
     public function courses_enrolled()
     {
         if ($this->is_student()) {
