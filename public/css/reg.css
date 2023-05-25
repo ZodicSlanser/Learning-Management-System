@@ -1,0 +1,48 @@
+
+
+.sel{
+    width: 250px;
+    height: 30px;
+    background: transparent;
+}
+option{
+    background: aliceblue;
+} 
+.btn{
+	display: block;
+	width: 44%;
+	height: 50px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-image: linear-gradient(to right, #000, #000, #000);
+	background-size: 200%;
+	font-size: 1.2rem;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 1rem 0;
+	cursor: pointer;
+	transition: .5s;
+    padding-top: 2px;
+    margin-left: 48px;
+}
+.home-section{
+    position: relative;
+    background: linear-gradient(rgba(0,0,0,0.8),#009799);
+    min-height: 100vh;
+    top: 0;
+    left: 78px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+    z-index: 2;
+  }
+  #photo{
+    width: 354px;
+    margin-left: 80px;
+  }
+
+  .n{
+    font-weight: bold;
+    color: #000;
+  }
