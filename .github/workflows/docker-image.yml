@@ -28,4 +28,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: $DOCKER_USERNAME/LMS:latest
+          tags: ${{ secrets.USERNAME }}/LMS:latest
