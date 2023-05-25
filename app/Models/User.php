@@ -18,6 +18,8 @@ class User extends Authenticatable
         'password',
         'academic_number',
         'role',
+        'department_id',
+        'remember_token',
     ];
 
     protected $hidden = [

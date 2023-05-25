@@ -23,7 +23,7 @@
     <div class="icon-bar">
         <div class="icon-bar__clipboard">
             <div class="icon-paste">
-                <div class="icon" style="margin-top: -50px">
+                <div class="icon" style="margin-top: -40px">
                     <a href="{{ route('generate.download', ['course_id' => $course->id]) }}" class="btn btn-primary">download</a>
 
                 </div>
@@ -67,7 +67,7 @@
             <input class="cells__input" value="{{$enrollment->student->name}}"/>
 
             <button name="delete" type="submit" value="delete"
-                    style=" font-weight: bold; cursor: pointer;background-color: rgb(183, 0, 0);width: 127px;height: 25px">
+                    style=" font-weight: bold;cursor: pointer;background-color: rgb(208, 0, 0);text-color: black; width: 127px;height: 25px;border-radius: 10px">
                 <a href="{{  route('enrollment.delete', ['enrollment_id' => $enrollment->id, 'course_id'=>$enrollment->course->id]) }}">Delete</a>
             </button>
 

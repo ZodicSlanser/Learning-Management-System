@@ -65,3 +65,16 @@ Route::middleware(CheckAdminRole::class)->group(function () {
 
 
 
+Route::Post('/search-user',[UsersController::class,'search_user'])->name('users.search');
+Route::Post('/search-courses',[CoursesController::class,'search_course'])->name('courses.search');
+Route::Post('/search-departments',[DepartmentsController::class,'search_departments'])->name('departments.search');
+
+
+Route::Post('/search-restore-user',[UsersController::class,'search_user_restore'])->name('users.restore.search');
+Route::Post('/search-restore-courses',[CoursesController::class,'search_course_restore'])->name('courses.restore.search');
+Route::Post('/search-restore-departments',[DepartmentsController::class,'search_departments_restore'])->name('departments.restore.search');
+
+
+Route::Post('/students-user',[UsersController::class,'Student'])->name('students');
+Route::Post('/doctors-user',[UsersController::class,'Doctor'])->name('doctors');
+Route::Post('/admin-user',[UsersController::class,'Admin'])->name('admins');
