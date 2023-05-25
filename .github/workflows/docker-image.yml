@@ -13,14 +13,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    services:
-      db:
-        image: mysql:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306:3306
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -33,7 +25,7 @@ jobs:
 
       - name: Set up environment variables
         run: |
-          echo "${{ secrets.ENV_CONTENT }}" > .env
+            echo "${{ secrets.ENV_CONTENT }}" > .env
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2

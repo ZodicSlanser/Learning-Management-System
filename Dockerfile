@@ -1,7 +1,5 @@
-
 # Use the official PHP-FPM image as the base image
 FROM php:8.1-fpm
-
 
 LABEL authors="Zodic"
 
@@ -30,9 +28,8 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-interaction --optimize-autoloader
 
-# Generate key and run migrations
+# Generate key
 RUN php artisan key:generate
-RUN php artisan migrate
 
 # Install JavaScript dependencies
 RUN npm install
@@ -45,5 +42,3 @@ EXPOSE 8000
 
 # Start the PHP development server
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
-
-
