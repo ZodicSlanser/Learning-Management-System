@@ -28,4 +28,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: zodicslanser/LMS:latest
+          tags: ${{ secrets.USERNAME }}/lms:latest
