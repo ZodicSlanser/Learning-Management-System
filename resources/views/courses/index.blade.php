@@ -4,103 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{asset('css/courses.index.css')}}" rel="stylesheet">
     <title>Courses</title>
 </head>
 <body>
-<style>
+   
 
-    .container {
-        align-items: center;
-        justify-content: center;
-    }
-
-    .card-box {
-        width: 200px;
-        height: 250px;
-        border-radius: 20px;
-        background: linear-gradient(170deg, rgba(58, 56, 56, 0.623) 0%, rgb(31, 31, 31) 100%);
-        position: relative;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.55);
-        cursor: pointer;
-        transition: all .3s;
-    }
-
-    .car {
-        position: relative;
-        cursor: pointer;
-        transition: all .3s;
-    }
-
-    .car:hover {
-        transform: scale(0.92);
-    }
-
-
-    .card_box0 {
-        margin-top: -55px;
-        position: relative;
-        cursor: pointer;
-        transition: all .3s;
-    }
-
-
-    .card-box span {
-        position: absolute;
-        overflow: hidden;
-        width: 150px;
-        height: 150px;
-        top: -10px;
-        left: -10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .card-box span {
-        position: absolute;
-        width: 150%;
-        height: 40px;
-        top: 58px;
-        margin-left: -58px;
-        background-image: linear-gradient(45deg, #ff6547 0%, #ffb144 51%, #ff7053 100%);
-        transform: rotate(-45deg) translateY(-20px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.23);
-    }
-
-    .card-box span::after {
-        content: '';
-        position: absolute;
-        width: 10px;
-        bottom: 0;
-        left: 0;
-        height: 10px;
-        z-index: -1;
-        box-shadow: 140px -140px #cc3f47;
-        background-image: linear-gradient(45deg, #FF512F 0%, #F09819 51%, #FF512F 100%);
-    }
-
-
-    .back0 {
-        width: 95%;
-        height: 100%;
-        justify-content: center;
-        display: flex;
-        border-radius: 20px;
-        align-items: center;
-        overflow: hidden;
-        background-color: #151515;
-
-    }
-
-
-</style>
 @extends('extend')
 @section('content')
     @if (session('status'))
@@ -121,56 +30,143 @@
         </a>
     </h1>
     <br><br>
+    <div class="sidebar">
+        <div class="logo-details">
+          <i class='bx bxl-c-plus-plus icon'></i>
+            <div class="logo_name">Restore  Courses</div>
+            <i class='bx bx-menu' id="btn" ></i>
+        </div>
+        <ul class="nav-list">
+          <li>
+            <form action="{{route('courses.search')}}" method="POST">
+              @csrf
+              @method('POST')
+              <button type="submit" name="find" style="cursor: pointer"> <i class='bx bx-search' style="margin-top: 10px"></i></button> 
+             <input type="text" name="search" placeholder="Search...">
+           
+             </form>  
+             <span class="tooltip">Search</span>
+          </li>
+          <li>
+            <a href="{{route('departments.index')}}">
+              <i class='bx bx-grid-alt'></i>
+              <span class="links_name">Departments</span>
+            </a>
+             <span class="tooltip">Departments</span>
+          </li>
+        <li>
+         <a href="{{route('users.index')}}">
+           <i class='bx bx-user' ></i>
+           <span class="links_name">User</span>
+         </a>
+         <span class="tooltip">User</span>
+       </li>
+      
+       <li>
+         <a href="{{route('courses.index')}}">
+           <i class='bx bx-pie-chart-alt-2' ></i>
+           <span class="links_name">courses</span>
+         </a>
+         <span class="tooltip">courses</span>
+       </li>
+       <li>
+         <a href="{{route("course.restore.index")}}">
+           <i class='bx bx-folder' ></i>
+           <span class="links_name">Restore File </span>
+         </a>
+         <span class="tooltip">Restore-Files</span>
+       </li>
+         <li>
+           <a href="#">
+             <i class='bx bx-cart-alt' ></i>
+             <span class="links_name">Order</span>
+           </a>
+           <span class="tooltip">Order</span>
+         </li>
+         <li>
+           <a href="#">
+             <i class='bx bx-heart' ></i>
+             <span class="links_name">Saved</span>
+           </a>
+           <span class="tooltip">Saved</span>
+         </li>
+         <li>
+           <a href="#">
+             <i class='bx bx-cog' ></i>
+             <span class="links_name">Setting</span>
+           </a>
+           <span class="tooltip">Setting</span>
+         </li>
+         <li class="profile">
+             <div class="profile-details">
+               <img src="profile.jpg" alt="profileImg">
+               <div class="name_job">
+                 <div class="name">Prem Shahi</div>
+                 <div class="job">Web designer</div>
+               </div>
+             </div>
+            
+            <button name="logout"><i class='bx bx-log-out' id="log_out" ></i></button>
+          <span class="tooltip_logout">log_out</span>
+    
+         </li>
+        </ul>
+      </div>
+
+
     @foreach ($courses as $course)
-        <div class="d-flex justify-content-between">
+    <div class="container">
+   
+        <div class="box">
+            <div class="d-flex justify-content-between">
 
-            <div>
-                <a href="{{route('courses.show',$course->id)}}">
-
-                    <div class="container">
-                        <div class="car">
-
-                            <div class="back0">
-                                <div class="back_content">
-                                    <div class="card-box">
-                                        <span> {{$course->id}} - {{$course->name}}</span>
-                                        <div style="border-radius: 50%;border: #000000;margin-top: ">
-                                            <img
-                                                style="position: relative; margin-left: 70px;margin-top: 50%;border-radius: 50%;border: #000000;"
-                                                src="ca.png" alt="course">
+                <div>
+                    <a href="{{route('courses.show',$course->id)}}">
+            
+                      
+            
+                                <div class="back0">
+                                    <div class="back_content">
+                                        <div class="card-box">
+                                            <span> {{$course->id}} - {{$course->name}}</span>
+                                            <div style="border-radius: 50%;border: #000000;margin-top: ">
+                                                <img
+                                                    style="position: relative; margin-left: -15px;margin-top: -20%;border-radius: 50%;border: #000000;"
+                                                    src="{{URL("images/course.svg")}}" alt="course">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="card_box0">
-                                <a href="{{route('generate.show',$course->id)}}" style="" class="btn btn-primary">Generate</a>
-
-                                <a href="{{route('courses.edit',$course->id)}}" class="btn btn-info"
-                                   style="margin-left: -27px;margin-top: -100px;">EDIT</a>
-
-                                <form action="{{route('courses.destroy',$course->id)}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"
-                                            style="margin-left: 100px;margin-top: -69px;"> DElETE
-                                    </button>
-                                </form>
-
+            
+                                <div class="card_box0">
+                                    <a href="{{route('generate.show',$course->id)}}" style="" class="btn btn-dark">Generate</a>
+            
+                                    <a href="{{route('courses.edit',$course->id)}}" class="btn btn-dark"
+                                       style="margin-left: -27px;margin-top: -100px;">EDIT</a>
+            
+                                    <form action="{{route('courses.destroy',$course->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-dark"
+                                                style="margin-left: 100px;margin-top: -69px;"> DElETE
+                                        </button>
+                                    </form>
+            
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
-
-
+            </div>
         </div>
+    </div>
     @endforeach
-    <a href="{{route('departments.index')}}" class="btn btn-primary">Departments</a>
-    <a href="{{route('generate.index')}}" class="btn btn-primary">Generate</a>
-    <a href="{{route('users.index')}}" class="btn btn-primary">Users</a>
-    {{ $courses->links() }}
+    
+    <br>
+  <div style="margin-top: 1000px;margin-left: 980px">  {{ $courses->links() }}</div>
 @endsection
+
 
 </body>
 </html>

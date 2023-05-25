@@ -15,7 +15,7 @@ class DepartmentsController extends Controller
     public function index()
     {
 
-        return view('departments.index', ['departments' => Department::paginate(9)]);
+        return view('departments.index', ['departments' => Department::paginate(12)]);
     }
 
     public function restore_index()
@@ -40,6 +40,28 @@ class DepartmentsController extends Controller
 
         return Redirect::route('departments.index')->with('status', 'Created Successfully');
     }
+
+    public function search_departments(Request $request){
+        if (isset($_POST['find'])) {
+            $find = $_POST['search'];
+            $department = Department::where('name',$find)->paginate(12);
+    
+            return view('departments.index', ['departments'=>$department]);
+            
+        }
+      }
+
+
+     /* public function search_departments_restore(Request $request){
+        if (isset($_POST['find'])) {
+            $find = $_POST['search'];
+            $department = Department::where('name',$find)->paginate(12);
+    
+            return view('departments.restore.search', ['departments'=>$department]);
+            
+        }
+      }
+*/
 
     /**
      * Show the form for creating a new resource.

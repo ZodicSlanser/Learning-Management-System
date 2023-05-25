@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link href="{{asset('css/label.all.css')}}" rel="stylesheet">
 
     <title>Document</title>
 </head>
@@ -27,40 +28,35 @@
                 <span class="tooltip">Search</span>
             </li>
             <li>
-                <a href="#">
-                    <i class='bx bx-grid-alt'></i>
-                    <span class="links_name">Dashboard</span>
+                <a href="{{route('departments.index')}}">
+                  <i class='bx bx-grid-alt'></i>
+                  <span class="links_name">Departments</span>
                 </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">User</span>
-                </a>
-                <span class="tooltip">User</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-chat'></i>
-                    <span class="links_name">Messages</span>
-                </a>
-                <span class="tooltip">Messages</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-pie-chart-alt-2'></i>
-                    <span class="links_name">Analytics</span>
-                </a>
-                <span class="tooltip">Analytics</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-folder'></i>
-                    <span class="links_name">File Manager</span>
-                </a>
-                <span class="tooltip">Files</span>
-            </li>
+                 <span class="tooltip">Departments</span>
+              </li>
+              <li>
+               <a href="{{route('users.index')}}">
+                 <i class='bx bx-user' ></i>
+                 <span class="links_name">User</span>
+               </a>
+               <span class="tooltip">User</span>
+             </li>
+            
+             <li>
+               <a href="{{route('courses.index')}}">
+                 <i class='bx bx-pie-chart-alt-2' ></i>
+                 <span class="links_name">courses</span>
+               </a>
+               <span class="tooltip">courses</span>
+             </li>
+             <li>
+               <a href="{{route("departments.restore.index")}}">
+                 <i class='bx bx-folder' ></i>
+                 <span class="links_name">Restore File </span>
+               </a>
+               <span class="tooltip">Restore-Files</span>
+             </li>
+             <li>
             <li>
                 <a href="#">
                     <i class='bx bx-cart-alt'></i>
@@ -102,7 +98,7 @@
 
     <!--form create-->
 
-    <form action="/departments" method="post">
+    <form action="/departments" method="post" style="margin-top:10%;margin-left: 20%;position: absolute; background-color: black ;border: 2px solid rgb(64, 64, 64) ;border-radius: 20px;width: 50%">
         @csrf
         <div>
             <label>Name</label>
@@ -128,7 +124,7 @@
 
 
         <div>
-            <button class="btn btn-success" type="submit">Supmit</button>
+            <button class="btn btn-success" type="submit" style="margin-left: 46%;margin-top: 5%">Supmit</button>
         </div>
     </form>
 @endsection

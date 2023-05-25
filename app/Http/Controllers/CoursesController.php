@@ -19,7 +19,7 @@ class CoursesController extends Controller
     public function index()
     {
         //
-        $courses = Course::paginate(10);
+        $courses = Course::paginate(12);
         foreach ($courses as $course) {
             if (!$course->prerequisite_id) {
                 $course->prerequisite_id = 'none';
@@ -33,6 +33,27 @@ class CoursesController extends Controller
         return view('trash.course_restore', ['courses' => Course::onlyTrashed()->get()]);
     }
 
+    public function search_course(Request $request){
+        if (isset($_POST['find'])) {
+            $find = $_POST['search'];
+            $course = Course::where('name',$find)->paginate(12);
+          
+            return view('courses.index', ['courses' => $course]);
+        }
+      }
+
+
+      /*public function search_course_restore(Request $request){
+        if (isset($_POST['find'])) {
+            $find = $_POST['search'];
+            $course = Course::where('name',$find)->paginate(12);
+          
+            return view('course.restore.index', ['courses' => $course]);
+        }
+      }*/
+
+
+
     /**
      * Store a newly created resource in storage.
      */
@@ -44,7 +65,7 @@ class CoursesController extends Controller
             'code' => 'required',
             'prerequisite_id' => 'required',
             'department_id' => 'required',
-            'professor_id' => 'required',
+            'professor_id' => 'required|nullable',
 
         ]);
         Storage::disk('local')->makeDirectory($formFields['name'], 'Contents');
@@ -104,7 +125,7 @@ class CoursesController extends Controller
             'code' => 'required',
             'prerequisite_id',
             'department_id' => 'required',
-            'professor_id' => 'required',
+            'professor_id' =>'required|nullable',
         ]);
 
         $course->update($formFields);

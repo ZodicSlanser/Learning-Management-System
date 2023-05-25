@@ -19,11 +19,11 @@ class UsersController extends Controller
     {
         //
         /* $users = DB::table('users')->where('role', '>', 1)->get();*/
-
-        $user = User::where('role', '>', 1)->paginate(4);
+      
+        $user = User::where('role', '>', 1)->paginate(12);
 
         return view('users.index', ['users' => $user]);
-
+        
     }
 
 
@@ -31,6 +31,29 @@ class UsersController extends Controller
     {
         return view('trash.user_restore', ['users' => User::onlyTrashed()->get()]);
     }
+
+
+
+    public function increment()
+    {
+        do {
+            $increment = random_int(100000, 999999);
+        } while (User::where("academic_number", "=", $increment)->first());
+
+        return $increment;
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+        $department = Department::get();
+        $user = User::where('role', '>', 1)->get();
+        return view('users.create', ['users' => $user, 'departments' => $department]);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -49,6 +72,7 @@ class UsersController extends Controller
                 'academic_number',
                 'role' => 'required',
                 'department_id' => 'required',
+                'remember_token',
             ]);
             $users = User::get();
             foreach ($users as $user) {
@@ -71,28 +95,90 @@ class UsersController extends Controller
             //   dd($fields,$increment);
             return Redirect::route('users.index')->with('status', "Create sucessfuly .");
 
+          
+
         }
+       
+        
+       
     }
 
-    public function increment()
-    {
-        do {
-            $increment = random_int(100000, 999999);
-        } while (User::where("academic_number", "=", $increment)->first());
+  public function search_user(Request $request){
+    if (isset($_POST['find'])) {
+        $find = $_POST['search'];
+        $user = User::where('role', '>', 1)->where('name',$find)->paginate(12);
 
-        return $increment;
+        return view('users.index', ['users' => $user]);
+        
     }
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-        $department = Department::get();
-        $user = User::where('role', '>', 1)->get();
-        return view('users.create', ['users' => $user, 'departments' => $department]);
+  /*public function search_user_restore(Request $request){
+    if (isset($_POST['find'])) {
+        $find = $_POST['search'];
+        $user = User::where('role', '>', 1)->where('name',$find)->paginate(12);
+
+        return view('users.restore', ['users' => $user]);
+        
     }
+  }*/
+
+
+  public function Student (Request $request){
+    if (isset($_POST['Student'])) {
+        
+        $user = User::where('role', '=', 3)->paginate(552);
+
+        return view('users.index', ['users' => $user]);
+        
+        
+    }
+    else{
+         
+        $user = User::where('role', '>', 1)->paginate(12);
+
+        return view('users.index', ['users' => $user]);
+        
+    }
+  }
+
+  public function Doctor (Request $request){
+    if (isset($_POST['Doctor'])) {
+        
+        $user = User::where('role', '=', 2)->paginate(552);
+
+        return view('users.index', ['users' => $user]);
+        
+        
+    }
+    else{
+         
+        $user = User::where('role', '>', 1)->paginate(12);
+
+        return view('users.index', ['users' => $user]);
+        
+    }
+  }
+
+  public function Admin (Request $request){
+    if (isset($_POST['Admin'])) {
+        
+        $user = User::where('role', '=', 1)->paginate(552);
+
+        return view('users.index', ['users' => $user]);
+        
+        
+    }
+    else{
+         
+        $user = User::where('role', '>', 1)->paginate(12);
+
+        return view('users.index', ['users' => $user]);
+        
+    }
+  }
+
+
 
     /**
      * Display the specified resource.

@@ -8,11 +8,9 @@
 }
 
 body {
-    background-color: #e3e3e3;
-    display: flex;
+    background-color: #1a1919;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    
     min-height: 100vh;
     margin: 0;
 
@@ -70,7 +68,7 @@ body {
     overflow: visible;
     width: 190px;
     height: 254px;
-    background-color: #151515;
+    background-color: #6c3411;
 
 }
 
@@ -116,7 +114,7 @@ body {
     width: 160px;
     height: 160%;
     background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff9966, #ff9966, transparent);
-    animation: rotation_481 5000ms infinite linear;
+    animation: rotation_481 7000ms infinite linear;
 
 }
 
@@ -211,7 +209,7 @@ body {
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    background-color: #ffbb66;
+    background-color: #6a00d5;
     position: relative;
     filter: blur(15px);
     animation: floating 2600ms infinite linear;
@@ -333,6 +331,7 @@ body {
 .sidebar .nav-list {
     margin-top: 20px;
     height: 100%;
+    margin-left: -30px;
 }
 
 .sidebar li {
@@ -547,5 +546,4 @@ body {
         display: none;
     }
 }
-
 
