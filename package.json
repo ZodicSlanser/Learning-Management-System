@@ -6,7 +6,6 @@
         "watch": "vite build --watch"
     },
     "devDependencies": {
-        "@kooneko/livereload-webpack-plugin": "^1.2.1",
         "axios": "^1.1.2",
         "browser-sync": "^2.29.1",
         "browser-sync-webpack-plugin": "^2.3.0",
