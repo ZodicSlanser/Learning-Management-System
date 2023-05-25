@@ -1,6 +1,6 @@
 
 # Use the official PHP-FPM image as the base image
-FROM php:7.4-fpm
+FROM php:8.1-fpm
 
 
 LABEL authors="Zodic"
